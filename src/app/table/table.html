@@ -1,0 +1,43 @@
+<table class=" w-full">
+    <tr class="text-gray-600 bg-gray-200 h-12">
+        <th>العنوان</th>
+        <th>النوع</th>
+        <th>التاريخ</th>
+        <th>الاجراءات</th>
+    </tr>
+    @for (item of items; track $index) {
+    <tr class="border-t border-gray-400 ">
+        <td class="flex flex-row items-center  gap-2 p-3">
+            <div class="w-10 h-10 rounded-3xl p-2" [ngClass]="{
+                                'bg-blue-200': checkOfType(item ,'قصة'),
+                                'bg-rose-200': checkOfType(item ,'فيديو'),
+                                'bg-orange-200': checkOfType(item ,'مهمة'),
+                            }"><i class="text-xl" [ngClass]="iconMap[item.type]"></i>
+
+            </div>
+            <p>{{item.Title}}</p>
+        </td>
+
+        <td class="">
+            <p class="w-14 h-7 rounded-xl text-center text-white" [ngClass]="{
+                                'bg-blue-500': checkOfType(item ,'قصة'),
+                                'bg-rose-500': checkOfType(item ,'فيديو'),
+                                'bg-orange-500': checkOfType(item ,'مهمة'),
+                            }">{{item.type}}</p>
+        </td>
+
+        <td class="text-gray-500 ">
+            {{item.date}}
+        </td>
+
+        <td class="flex flex-row items-center justify-center gap-2">
+            <button class="w-10 h-10 bg-blue-500 rounded-2xl text-white"><i
+                    class="fa-regular fa-pen-to-square text-xl"></i></button>
+            <button class="w-10 h-10 bg-red-500 rounded-2xl text-white"><i
+                    class="fa-regular fa-trash-can text-xl"></i></button>
+        </td>
+    </tr>
+
+    }
+
+</table>

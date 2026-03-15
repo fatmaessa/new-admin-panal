@@ -1,4 +1,168 @@
+<div class="mt-14  flex flex-row justify-between items-center gap-7 px-10">
+    <div
+        class=" w-[20%] duration-300 hover:scale-105  p-6 bg-white  rounded-3xl border-b-8 border-blue-500 flex flex-row grow  gap-4 items-center ">
+        <div class="w-15 h-15 rounded-2xl bg-blue-200 p-3"><i
+                class="fa-solid fa-book-open text-blue-500 text-3xl  "></i></div>
+        <div>
+            <h2 class="text-gray-600">اجمالي القصص</h2>
+            <p class="font-bold text-xl">200</p>
+        </div>
+    </div>
 
-<app-header></app-header>
-<div></div>
-<app-navigation-bar></app-navigation-bar>
+    <div
+        class=" w-[20%] p-6 duration-300  bg-white hover:scale-105 rounded-3xl border-b-8 border-rose-500 flex flex-row grow gap-4 items-center ">
+        <div class="w-15 h-15 rounded-2xl bg-rose-300 p-3"><i
+                class="fa-regular fa-circle-play text-rose-500 text-3xl"></i></div>
+        <div>
+            <h2 class="text-gray-600">اجمالي الفيديوهات</h2>
+            <p class="font-bold text-xl">120</p>
+        </div>
+    </div>
+
+    <div
+        class=" w-[20%] p-6 duration-300  bg-white hover:scale-105 rounded-3xl border-b-8 border-orange-500 flex flex-row grow gap-4 items-center ">
+        <div class="w-15 h-15 rounded-2xl bg-orange-300 p-3"><i
+                class="fa-solid fa-list-check text-orange-500 text-3xl"></i></div>
+        <div>
+            <h2 class="text-gray-600">اجمالي المهمات</h2>
+            <p class="font-bold text-xl">30</p>
+        </div>
+    </div>
+
+
+</div>
+<div class=" px-10">
+
+    <div class=" h-auto p-4 bg-white flex flex-col justify-between items-center gap-4  mt-16 rounded-2xl">
+        <div class="flex flex-row justify-between w-full ">
+            <h2 class="text-xl text-gray-600">اخر الاضافات</h2>
+            <button class="p-2 w-32 h-10 rounded-2xl bg-blue-300 text-white ">عرض الكل</button>
+        </div>
+        <div class="w-full">
+            <app-table></app-table>
+
+        </div>
+    </div>
+
+    <div></div>
+</div>
+
+<!-- 
+    <table class="w-full ">
+                    <tr class="text-gray-600 bg-gray-200 h-12">
+                        <th>العنوان</th>
+                        <th>النوع</th>
+                        <th>التاريخ</th>
+                        <th>الاجراءات</th>
+                    </tr>
+                    <tr class="border-t border-gray-400 ">
+                        <td class="flex flex-row items-center  gap-2 p-3">
+                            <div class="w-10 h-10 rounded-3xl bg-blue-200 p-2"><i
+                                    class="fa-solid fa-book-open text-blue-500 text-xl "></i></div>
+                            <p>قصة النبي يوسف عليه السلام</p>
+                        </td>
+
+                        <td class="">
+                            <p class="w-14 h-7 bg-blue-500 rounded-xl text-center text-white">قصة</p>
+                        </td>
+
+                        <td class="text-gray-500 ">
+                            11/8/2026
+                        </td>
+
+                        <td class="flex flex-row items-center justify-center gap-2">
+                            <button class="w-10 h-10 bg-blue-500 rounded-2xl text-white"><i
+                                    class="fa-regular fa-pen-to-square text-xl"></i></button>
+                            <button class="w-10 h-10 bg-red-500 rounded-2xl text-white"><i
+                                    class="fa-regular fa-trash-can text-xl"></i></button>
+                        </td>
+                    </tr>
+                    <tr class="border-t border-gray-400 ">
+                        <td class="flex flex-row items-center  gap-2 p-3">
+                            <div class="w-10 h-10 rounded-3xl bg-rose-200 p-2"><i
+                                    class="fa-regular fa-circle-play text-rose-500 text-2xl"></i></div>
+                            <p>تعليم اداب الطعام</p>
+                        </td>
+
+                        <td class="">
+                            <p class="w-14 h-7 bg-rose-500 rounded-xl text-center text-white">فيديو</p>
+                        </td>
+
+                        <td class="text-gray-500 ">
+                            11/8/2026
+                        </td>
+
+                        <td class="flex flex-row items-center justify-center gap-2">
+                            <button class="w-10 h-10 bg-blue-500 rounded-2xl text-white"><i
+                                    class="fa-regular fa-pen-to-square text-xl"></i></button>
+                            <button class="w-10 h-10 bg-red-500 rounded-2xl text-white"><i
+                                    class="fa-regular fa-trash-can text-xl"></i></button>
+                        </td>
+                    </tr>
+                    <tr class="border-t border-gray-400 ">
+                        <td class="flex flex-row items-center  gap-2 p-3">
+                            <div class="w-10 h-10 rounded-3xl bg-rose-200 p-2"><i
+                                    class="fa-regular fa-circle-play text-rose-500 text-2xl"></i></div>
+                            <p>تعليم اداب الطعام</p>
+                        </td>
+
+                        <td class="">
+                            <p class="w-14 h-7 bg-rose-500 rounded-xl text-center text-white">فيديو</p>
+                        </td>
+
+                        <td class="text-gray-500 ">
+                            11/8/2026
+                        </td>
+
+                        <td class="flex flex-row items-center justify-center gap-2">
+                            <button class="w-10 h-10 bg-blue-500 rounded-2xl text-white"><i
+                                    class="fa-regular fa-pen-to-square text-xl"></i></button>
+                            <button class="w-10 h-10 bg-red-500 rounded-2xl text-white"><i
+                                    class="fa-regular fa-trash-can text-xl"></i></button>
+                        </td>
+                    </tr>
+                    <tr class="border-t border-gray-400 ">
+                        <td class="flex flex-row items-center  gap-2 p-3">
+                            <div class="w-10 h-10 rounded-3xl bg-rose-200 p-2"><i
+                                    class="fa-regular fa-circle-play text-rose-500 text-2xl"></i></div>
+                            <p>تعليم اداب الطعام</p>
+                        </td>
+
+                        <td class="">
+                            <p class="w-14 h-7 bg-rose-500 rounded-xl text-center text-white">فيديو</p>
+                        </td>
+
+                        <td class="text-gray-500 ">
+                            11/8/2026
+                        </td>
+
+                        <td class="flex flex-row items-center justify-center gap-2">
+                            <button class="w-10 h-10 bg-blue-500 rounded-2xl text-white"><i
+                                    class="fa-regular fa-pen-to-square text-xl"></i></button>
+                            <button class="w-10 h-10 bg-red-500 rounded-2xl text-white"><i
+                                    class="fa-regular fa-trash-can text-xl"></i></button>
+                        </td>
+                    </tr>
+                    <tr class="border-t border-gray-400 ">
+                        <td class="flex flex-row items-center  gap-2 p-3">
+                            <div class="w-10 h-10 rounded-3xl bg-orange-200 p-2"><i
+                                    class="fa-solid fa-list-check text-orange-500 text-xl "></i></div>
+                            <p>مساعدة ماما في البيت</p>
+                        </td>
+
+                        <td class="">
+                            <p class="w-14 h-7 bg-orange-500 rounded-xl text-center text-white">مهمة</p>
+                        </td>
+
+                        <td class="text-gray-500 ">
+                            11/8/2026
+                        </td>
+
+                        <td class="flex flex-row items-center justify-center gap-2">
+                            <button class="w-10 h-10 bg-blue-500 rounded-2xl text-white"><i
+                                    class="fa-regular fa-pen-to-square text-xl"></i></button>
+                            <button class="w-10 h-10 bg-red-500 rounded-2xl text-white"><i
+                                    class="fa-regular fa-trash-can text-xl"></i></button>
+                        </td>
+                    </tr>
+                </table> -->
