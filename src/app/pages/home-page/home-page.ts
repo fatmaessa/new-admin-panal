@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { NavigationBar } from "../navigation-bar/navigation-bar";
-import { Header } from "../header/header";
-import { Table } from "../table/table";
+import { NavigationBar } from "../../core/navigation-bar/navigation-bar";
+import { Header } from "../../core/header/header";
+import { Table } from "../../shared/table/table";
 
 @Component({
   selector: 'app-home-page',
