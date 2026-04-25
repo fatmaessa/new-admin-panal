@@ -1,0 +1,47 @@
+<!-- video-card.html -->
+<div class="flex flex-col group cursor-pointer" (click)="navigateToDetails()">
+  <!-- Thumbnail / Placeholder -->
+  <div class="relative aspect-video rounded-3xl overflow-hidden mb-4 video-card-shadow">
+    <div [class]="getPlaceholderClass()" class="w-full h-full flex items-center justify-center">
+      <span class="material-symbols-outlined text-white/60 text-6xl">play_circle</span>
+    </div>
+
+    <!-- Points Badge -->
+    <div
+      class="absolute bottom-3 left-3 bg-slate-900/70 text-white px-2 py-1 rounded-lg text-xs font-bold flex items-center gap-1"
+    >
+      <span class="material-symbols-outlined text-xs text-yellow-400">stars</span>
+      {{ video.pointsRewarded }} نقطة
+    </div>
+
+    <!-- Category Badge -->
+    <div class="absolute top-3 right-3">
+      <span [class]="getCategoryClass()">
+        {{ video.category }}
+      </span>
+    </div>
+
+    <!-- Play Overlay on Hover -->
+    <div
+      class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"
+    >
+      <div
+        class="w-14 h-14 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border-2 border-white/50"
+      >
+        <span class="material-symbols-outlined text-white text-3xl">play_arrow</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Title -->
+  <h3
+    class="font-h2-arabic text-lg text-on-surface mb-1 text-right group-hover:text-primary transition-colors line-clamp-2"
+  >
+    {{ video.title }}
+  </h3>
+
+  <!-- Description -->
+  <p class="text-slate-400 text-sm font-body-md-arabic text-right line-clamp-2 leading-relaxed">
+    {{ video.description }}
+  </p>
+</div>

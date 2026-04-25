@@ -1,0 +1,128 @@
+<!-- video-details.html -->
+<main class="pt-24 px-6 max-w-5xl mx-auto pb-12">
+  <!-- Back + Actions -->
+  <div class="flex flex-row-reverse justify-between items-center mb-8">
+    <button
+      (click)="goBack()"
+      class="flex items-center gap-2 text-slate-500 hover:text-primary transition-colors"
+    >
+      <span class="material-symbols-outlined">arrow_forward</span>
+      <span class="font-bold">العودة للمكتبة</span>
+    </button>
+
+    <div class="flex gap-3" *ngIf="!isLoading()">
+      <button
+        (click)="goToEdit()"
+        class="bg-gradient-to-r from-blue-400 to-blue-600 text-white px-5 py-2.5 rounded-2xl flex items-center gap-2 shadow-lg hover:shadow-blue-200/50 transition-all active:scale-95"
+      >
+        <span class="material-symbols-outlined text-sm">edit</span>
+        <span class="font-bold text-sm">تعديل</span>
+      </button>
+      <button
+        (click)="confirmDelete()"
+        class="bg-gradient-to-r from-red-400 to-red-600 text-white px-5 py-2.5 rounded-2xl flex items-center gap-2 shadow-lg hover:shadow-red-200/50 transition-all active:scale-95"
+      >
+        <span class="material-symbols-outlined text-sm">delete</span>
+        <span class="font-bold text-sm">حذف</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="isLoading()" class="flex justify-center items-center min-h-[400px]">
+    <div
+      class="w-12 h-12 rounded-full border-4 border-primary border-t-transparent animate-spin"
+    ></div>
+  </div>
+
+  <!-- Content -->
+  <ng-container *ngIf="!isLoading() && video()">
+    <!-- Player Placeholder -->
+    <section class="mb-8">
+      <div
+        [class]="getPlaceholderClass()"
+        class="relative w-full aspect-video md:aspect-[21/9] rounded-[32px] overflow-hidden flex items-center justify-center video-card-shadow"
+      >
+        <a
+          [href]="video()!.url"
+          target="_blank"
+          class="w-24 h-24 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border-2 border-white/50 hover:scale-110 transition-transform active:scale-90"
+        >
+          <span class="material-symbols-outlined text-white text-5xl">play_arrow</span>
+        </a>
+        <div
+          class="absolute bottom-6 right-6 text-white/80 text-sm font-bold bg-black/30 px-4 py-2 rounded-2xl backdrop-blur-sm"
+        >
+          {{ video()!.category }}
+        </div>
+      </div>
+    </section>
+
+    <!-- Info Card -->
+    <section class="bg-white rounded-[28px] p-8 shadow-sm border border-slate-100">
+      <div class="flex flex-row-reverse justify-between items-start gap-4 mb-4">
+        <h1 class="text-2xl font-black text-slate-800 text-right">
+          {{ video()!.title }}
+        </h1>
+        <span [class]="getCategoryClass(video()!.category)">
+          {{ video()!.category }}
+        </span>
+      </div>
+
+      <p class="text-slate-500 text-right leading-relaxed mb-6">
+        {{ video()!.description }}
+      </p>
+
+      <div class="flex flex-row-reverse gap-6 border-t border-slate-100 pt-6">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-yellow-400">stars</span>
+          <span class="font-bold text-slate-800">{{ video()!.pointsRewarded }}</span>
+          <span class="text-sm text-slate-500">نقطة</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-blue-500">link</span>
+          <a
+            [href]="video()!.url"
+            target="_blank"
+            class="text-sm text-blue-500 underline underline-offset-2 truncate max-w-[200px]"
+          >
+            {{ video()!.url }}
+          </a>
+        </div>
+      </div>
+    </section>
+  </ng-container>
+</main>
+
+<!-- Delete Modal -->
+<div
+  *ngIf="showDeleteModal()"
+  class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-sm px-4"
+  (click)="closeDeleteModal()"
+>
+  <div
+    class="bg-white rounded-[28px] p-8 w-full max-w-sm shadow-2xl text-center"
+    (click)="$event.stopPropagation()"
+  >
+    <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+      <span class="material-symbols-outlined text-red-500 text-3xl">delete_forever</span>
+    </div>
+    <h2 class="text-xl font-black text-slate-800 mb-2">حذف الفيديو؟</h2>
+    <p class="text-slate-500 text-sm mb-8">هيتحذف الفيديو نهائياً ومش هتقدر ترجعه تاني.</p>
+    <div class="flex gap-3">
+      <button
+        (click)="submitDelete()"
+        [disabled]="isDeleting()"
+        class="flex-1 bg-gradient-to-r from-red-400 to-red-600 text-white py-3 rounded-2xl font-bold shadow-lg transition-all active:scale-95 disabled:opacity-60"
+      >
+        {{ isDeleting() ? 'جاري الحذف...' : 'نعم، احذف' }}
+      </button>
+      <button
+        (click)="closeDeleteModal()"
+        class="flex-1 bg-slate-100 text-slate-600 py-3 rounded-2xl font-bold hover:bg-slate-200 transition-colors"
+      >
+        إلغاء
+      </button>
+    </div>
+  </div>
+</div>

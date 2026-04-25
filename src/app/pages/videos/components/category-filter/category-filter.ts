@@ -1,8 +1,9 @@
+// category-filter.ts
 import { CommonModule } from '@angular/common';
 import { Component, Output, EventEmitter } from '@angular/core';
 
 @Component({
- selector: 'app-category-filter',
+  selector: 'app-category-filter',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './category-filter.html',

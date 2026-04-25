@@ -7,18 +7,16 @@ import { NEWSTORY } from '../models/models';
   providedIn: 'root',
 })
 export class Sorties {
-  private http=inject(HttpClient)
-baseUrl=signal<string>(environment.apiUrl)
-  getAllStories(){
-    return this.http.get(`${this.baseUrl()}stories`)
+  private http = inject(HttpClient);
+  private baseUrl = signal<string>(environment.apiUrl);
+  getAllStories() {
+    return this.http.get(`${this.baseUrl()}stories`);
   }
 
-  
-  addNewStories(newStory:NEWSTORY){
-      return this.http.post(`${this.baseUrl()}stories`,newStory)
-  
+  addNewStories(newStory: NEWSTORY) {
+    return this.http.post(`${this.baseUrl()}stories`, newStory);
   }
   updateStory(id: number, storyData: NEWSTORY) {
-  return this.http.put(`${this.baseUrl()}stories/${id}`, storyData);
-}
+    return this.http.put(`${this.baseUrl()}stories/${id}`, storyData);
+  }
 }
