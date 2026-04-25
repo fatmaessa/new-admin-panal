@@ -1,10 +1,12 @@
 <main class="pt-24 px-6 max-w-5xl mx-auto">
   <header class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
     <div>
-      <h1 class="text-4xl font-extrabold text-slate-800  mb-2">إدارة القصص</h1>
-      <p class="text-slate-500  text-lg">عرض وتعديل كافة القصص المضافة في المكتبة</p>
+      <h1 class="text-4xl font-extrabold text-slate-800 mb-2">إدارة القصص</h1>
+      <p class="text-slate-500 text-lg">عرض وتعديل كافة القصص المضافة في المكتبة</p>
     </div>
-    <button class="group flex items-center gap-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-2xl shadow-lg transition-all active:scale-95">
+    <button
+      class="group flex items-center gap-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-2xl shadow-lg transition-all active:scale-95"
+    >
       <!-- <span class="text-xl font-bold" >إضافة قصة جديدة</span> -->
       <a class="text-xl font-bold" routerLink="/add-story">إضافة قصة جديدة</a>
     </button>
@@ -12,75 +14,100 @@
 
   <section class="mb-8">
     <div class="flex flex-wrap gap-3">
-      <button 
+      <button
         (click)="onFilters('الكل')"
         [class.bg-purple-600]="selectedFilter() === 'الكل'"
         [class.text-white]="selectedFilter() === 'الكل'"
-        class="px-5 py-2 rounded-xl font-bold shadow-md transition-all border border-transparent">الكل</button>
-      
+        class="px-5 py-2 rounded-xl font-bold shadow-md transition-all border border-transparent"
+      >
+        الكل
+      </button>
+
       @for (cat of ['حكايات قبل النوم', 'علوم واكتشاف', 'مغامرات', 'خيال']; track cat) {
-        <button 
+        <button
           (click)="onFilters(cat)"
           [class.bg-purple-600]="selectedFilter() === cat"
           [class.text-white]="selectedFilter() === cat"
-          class="px-5 py-2 rounded-xl bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium hover:bg-purple-50 transition-colors border border-slate-100 dark:border-slate-700">
-          {{cat}}
+          class="px-5 py-2 rounded-xl bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium hover:bg-purple-50 transition-colors border border-slate-100 dark:border-slate-700"
+        >
+          {{ cat }}
         </button>
       }
     </div>
   </section>
 
   <section class="mb-20">
-    <div class="bg-white dark:bg-slate-800 rounded-[2.5rem] shadow-xl shadow-slate-200/60 dark:shadow-none border border-slate-100 dark:border-slate-700 overflow-hidden">
-      <div class="hidden md:grid grid-cols-12 gap-4 px-8 py-5 bg-slate-50/50 dark:bg-slate-900/50 border-b border-slate-100 dark:border-slate-700">
-        <div class="col-span-6 text-slate-400 font-bold text-sm uppercase tracking-wider">تفاصيل القصة</div>
-        <div class="col-span-3 text-slate-400 font-bold text-sm uppercase tracking-wider">الكاتب</div>
-        <div class="col-span-3 text-left text-slate-400 font-bold text-sm uppercase tracking-wider">الإجراءات</div>
+    <div
+      class="bg-white dark:bg-slate-800 rounded-[2.5rem] shadow-xl shadow-slate-200/60 dark:shadow-none border border-slate-100 dark:border-slate-700 overflow-hidden"
+    >
+      <div
+        class="hidden md:grid grid-cols-12 gap-4 px-8 py-5 bg-slate-50/50 dark:bg-slate-900/50 border-b border-slate-100 dark:border-slate-700"
+      >
+        <div class="col-span-6 text-slate-400 font-bold text-sm uppercase tracking-wider">
+          تفاصيل القصة
+        </div>
+        <div class="col-span-3 text-slate-400 font-bold text-sm uppercase tracking-wider">
+          الكاتب
+        </div>
+        <div class="col-span-3 text-left text-slate-400 font-bold text-sm uppercase tracking-wider">
+          الإجراءات
+        </div>
       </div>
 
-     <div class="divide-y divide-slate-100 dark:divide-slate-700">
-  @for (story of filteredStories(); track story.storyId) {
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 px-6 md:px-8 py-6 items-center hover:bg-slate-50/80 dark:hover:bg-slate-900/30 transition-colors">
-      
-      <div class="col-span-1 md:col-span-6 flex items-center gap-5">
-        <div class="w-20 h-20 rounded-2xl overflow-hidden shrink-0 shadow-inner bg-slate-100">
-          <img class="w-full h-full object-cover" [src]="story.url" [alt]="story.title"/>
-        </div>
-        <div>
-          <h4 class="font-bold text-xl text-slate-800 dark:text-white mb-1">{{story.title}}</h4>
-          
-          <div class="flex gap-2 items-center">
-            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300">
-              {{story.category}}
-            </span>
-            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">
-              <span class="material-symbols-outlined text-[14px]">stars</span>
-              {{story.pointsRewarded}} نقطة
-            </span>
+      <div class="divide-y divide-slate-100 dark:divide-slate-700">
+        @for (story of filteredStories(); track story.storyId) {
+          <div
+            class="grid grid-cols-1 md:grid-cols-12 gap-4 px-6 md:px-8 py-6 items-center hover:bg-slate-50/80 dark:hover:bg-slate-900/30 transition-colors"
+          >
+            <div class="col-span-1 md:col-span-6 flex items-center gap-5">
+              <div class="w-20 h-20 rounded-2xl overflow-hidden shrink-0 shadow-inner bg-slate-100">
+                <img class="w-full h-full object-cover" [src]="story.url" [alt]="story.title" />
+              </div>
+              <div>
+                <h4 class="font-bold text-xl text-slate-800 dark:text-white mb-1">
+                  {{ story.title }}
+                </h4>
+
+                <div class="flex gap-2 items-center">
+                  <span
+                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300"
+                  >
+                    {{ story.category }}
+                  </span>
+                  <span
+                    class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400"
+                  >
+                    <span class="material-symbols-outlined text-[14px]">stars</span>
+                    {{ story.pointsRewarded }} نقطة
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="hidden md:col-span-3 md:block text-slate-500 dark:text-slate-400">
+              <p class="text-sm">معرف القصة: #{{ story.storyId }}</p>
+            </div>
+
+            <div class="col-span-1 md:col-span-3 flex justify-end md:justify-start gap-3">
+              <button
+                [routerLink]="['/edit-story', story.storyId]"
+                class="flex items-center gap-2 px-4 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-purple-100 dark:hover:bg-purple-900/40 hover:text-purple-700 transition-all border border-transparent hover:border-purple-200"
+              >
+                <span class="material-symbols-outlined text-xl">edit</span>
+              </button>
+
+              <button
+                (click)="deleteStory(story.storyId)"
+                class="p-2 rounded-xl text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all"
+              >
+                <span class="material-symbols-outlined text-xl">delete</span>
+              </button>
+            </div>
           </div>
-        </div>
+        } @empty {
+          <div class="p-20 text-center text-slate-400">لا توجد قصص في هذا التصنيف حالياً</div>
+        }
       </div>
-      
-      <div class="hidden md:col-span-3 md:block text-slate-500 dark:text-slate-400">
-         <p class="text-sm">معرف القصة: #{{story.storyId}}</p>
-      </div>
-
-      <div class="col-span-1 md:col-span-3 flex justify-end md:justify-start gap-3">
-        <button [routerLink]="['/edit-story', story.storyId]" class="flex items-center gap-2 px-4 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-purple-100 dark:hover:bg-purple-900/40 hover:text-purple-700 transition-all border border-transparent hover:border-purple-200">
-          <span class="material-symbols-outlined text-xl">edit</span>
-        </button>
-        
-        <button (click)="deleteStory(story.storyId)" class="p-2 rounded-xl text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all">
-          <span class="material-symbols-outlined text-xl">delete</span>
-        </button>
-      </div>
-    </div>
-  } @empty {
-    <div class="p-20 text-center text-slate-400">
-       لا توجد قصص في هذا التصنيف حالياً
-    </div>
-  }
-</div>
     </div>
   </section>
 </main>

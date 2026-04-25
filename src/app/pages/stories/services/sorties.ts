@@ -19,4 +19,7 @@ export class Sorties {
   updateStory(id: number, storyData: NEWSTORY) {
     return this.http.put(`${this.baseUrl()}stories/${id}`, storyData);
   }
+  deleteStory(id: number) {
+    return this.http.delete(`${this.baseUrl()}stories/${id}`);
+  }
 }
