@@ -3,14 +3,29 @@
   <!-- Thumbnail / Placeholder -->
   <div class="relative aspect-video rounded-3xl overflow-hidden mb-4 video-card-shadow">
     <div [class]="getPlaceholderClass()" class="w-full h-full flex items-center justify-center">
-      <span class="material-symbols-outlined text-white/60 text-6xl">play_circle</span>
+      <!-- <span class="material-symbols-outlined text-white/60 text-6xl">play_circle</span> -->
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="rgba(255,255,255,0.4)"
+        class="w-16 h-16"
+      >
+        <path
+          d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"
+        />
+      </svg>
     </div>
 
     <!-- Points Badge -->
     <div
       class="absolute bottom-3 left-3 bg-slate-900/70 text-white px-2 py-1 rounded-lg text-xs font-bold flex items-center gap-1"
     >
-      <span class="material-symbols-outlined text-xs text-yellow-400">stars</span>
+      <!-- <span class="material-symbols-outlined text-xs text-yellow-400">stars</span> -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#facc15" class="w-3 h-3">
+        <path
+          d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+        />
+      </svg>
       {{ video.pointsRewarded }} نقطة
     </div>
 
@@ -28,7 +43,15 @@
       <div
         class="w-14 h-14 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border-2 border-white/50"
       >
-        <span class="material-symbols-outlined text-white text-3xl">play_arrow</span>
+        <!-- <span class="material-symbols-outlined text-white text-3xl">play_arrow</span> -->
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="white"
+          class="w-8 h-8 ml-1"
+        >
+          <path d="M8 5v14l11-7z" />
+        </svg>
       </div>
     </div>
   </div>

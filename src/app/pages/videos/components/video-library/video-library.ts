@@ -2,7 +2,7 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CategoryFilterComponent } from '../category-filter/category-filter';
-import { FeaturedVideoComponent, FeaturedVideo } from '../featured-video/featured-video';
+import { FeaturedVideoComponent } from '../featured-video/featured-video';
 import { VideoCardComponent } from '../video-card/video-card';
 import { Video } from '../../models/models';
 import { Videos } from '../../services/videos';
@@ -19,17 +19,13 @@ export class VideoLibraryComponent implements OnInit {
   private videoServices = inject(Videos);
   private router = inject(Router);
 
-  featuredVideo: FeaturedVideo = {
-    title: 'رحلة ممتعة في عالم الأرقام',
-    description: 'تعلم العد بطريقة تفاعلية مع أصدقائك في ونيسي.',
-    thumbnail: 'assets/images/featured.jpg',
-  };
+  // featuredVideo = signal<Video{}>({});
+  featuredVideo = signal<Video | null>(null);
 
   allVideos = signal<Video[]>([]);
   selectedCategory = signal<string>('الكل');
   isLoading = signal(true);
 
-  // ✅ computed — يتحدث أوتوماتيك لما أي signal يتغير
   filteredVideos = computed(() => {
     const cat = this.selectedCategory();
     const all = this.allVideos();
@@ -46,6 +42,7 @@ export class VideoLibraryComponent implements OnInit {
       next: (res: any) => {
         this.allVideos.set(res.data);
         this.isLoading.set(false);
+        this.featuredVideo.set(res.data[0]);
       },
       error: () => this.isLoading.set(false),
     });

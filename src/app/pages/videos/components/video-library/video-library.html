@@ -7,7 +7,7 @@
       (click)="goToAdd()"
       class="bg-gradient-to-r from-blue-400 to-blue-600 text-on-primary px-6 py-3 rounded-2xl flex items-center gap-2 shadow-lg hover:shadow-blue-200/50 transition-all active:scale-95"
     >
-      <span class="material-symbols-outlined text-sm">add</span>
+      <!-- <span class="material-symbols-outlined text-sm">add</span> -->
       <span class="font-bold text-sm">إضافة فيديو</span>
     </button>
   </div>
@@ -16,8 +16,7 @@
   <app-category-filter (categoryChanged)="onCategoryChange($event)" />
 
   <!-- Featured Video -->
-  <app-featured-video [video]="featuredVideo" />
-
+  <app-featured-video *ngIf="featuredVideo()" [video]="featuredVideo()!" />
   <!-- Loading -->
   <div *ngIf="isLoading()" class="flex justify-center items-center min-h-[300px]">
     <div
@@ -35,7 +34,7 @@
     *ngIf="!isLoading() && filteredVideos().length === 0"
     class="flex flex-col items-center justify-center min-h-[300px] text-slate-400"
   >
-    <span class="material-symbols-outlined text-6xl mb-4">videocam_off</span>
+    <!-- <span class="material-symbols-outlined text-6xl mb-4">videocam_off</span> -->
     <p class="font-body-md-arabic text-lg">مفيش فيديوهات في الفئة دي</p>
   </div>
 </main>
