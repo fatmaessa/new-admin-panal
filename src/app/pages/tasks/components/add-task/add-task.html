@@ -1,0 +1,127 @@
+<div class="max-w-2xl mx-auto px-6 py-8">
+
+  <!-- Header -->
+  <div class="flex items-center gap-4 mb-8">
+    <button (click)="goBack()"
+      class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 transition-all">
+      <span class="material-symbols-outlined text-slate-600"><i class="fa-solid fa-angle-right"></i></span>
+    </button>
+    <div>
+      <h1 class="font-h1-arabic text-2xl font-bold text-slate-800">إضافة مهمة جديدة</h1>
+      <p class="text-outline text-sm mt-1">أضف مهمة جديدة للأبطال الصغار</p>
+    </div>
+  </div>
+
+  <!-- Form Card -->
+  <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-8">
+    <div class="flex flex-col gap-6">
+
+      <!-- اسم المهمة -->
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-bold text-slate-700">اسم المهمة</label>
+        <input
+          type="text"
+          [(ngModel)]="task.name"
+          placeholder="مثال: أداء الصلوات في وقتها"
+          class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+        />
+        <span *ngIf="submitted && !task.name" class="text-error text-xs">
+          ⚠️ اسم المهمة مطلوب
+        </span>
+      </div>
+
+      <!-- الفئة -->
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-bold text-slate-700">الفئة</label>
+        <div class="flex flex-wrap gap-3">
+          <button
+            *ngFor="let cat of categories"
+            (click)="task.category = cat.value"
+            [class]="task.category === cat.value
+              ? 'flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-primary bg-primary/5 text-primary font-bold text-sm transition-all'
+              : 'flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-200 text-slate-600 font-bold text-sm hover:bg-slate-50 transition-all'"
+          >
+            <span [class]="'material-symbols-outlined text-sm ' + cat.color">{{ cat.icon }}</span>
+            {{ cat.label }}
+          </button>
+        </div>
+        <span *ngIf="submitted && !task.category" class="text-error text-xs">
+          ⚠️ الفئة مطلوبة
+        </span>
+      </div>
+
+      <!-- المكافأة -->
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-bold text-slate-700">
+          المكافأة (نجوم)
+          <span class="text-primary font-black mr-2">{{ task.stars }}</span>
+        </label>
+        <div class="flex items-center gap-4">
+          <input
+            type="range"
+            [(ngModel)]="task.stars"
+            min="10" max="200" step="10"
+            class="w-full accent-primary"
+          />
+        </div>
+        <div class="flex justify-between text-xs text-slate-400">
+          <span>١٠</span>
+          <span>١٠٠</span>
+          <span>٢٠٠</span>
+        </div>
+      </div>
+
+      <!-- وصف المهمة -->
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-bold text-slate-700">
+          وصف المهمة
+          <span class="text-slate-400 font-normal mr-1">(اختياري)</span>
+        </label>
+        <textarea
+          [(ngModel)]="task.description"
+          placeholder="اكتب وصفاً مختصراً للمهمة..."
+          rows="3"
+          class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all resize-none"
+        ></textarea>
+      </div>
+
+      <!-- Preview Card -->
+      <div *ngIf="task.name || task.category" class="flex flex-col gap-2">
+        <label class="text-sm font-bold text-slate-700">معاينة</label>
+        <div class="bg-slate-50 rounded-xl border border-slate-200 p-4 flex items-center gap-4">
+          <div [class]="'w-12 h-12 rounded-lg flex items-center justify-center ' + getSelectedCategoryBg()">
+            <span [class]="'material-symbols-outlined ' + getSelectedCategoryColor()">
+              {{ getSelectedCategoryIcon() }}
+            </span>
+          </div>
+          <div class="flex-1">
+            <p class="font-bold text-slate-800">{{ task.name || 'اسم المهمة' }}</p>
+            <div class="flex items-center gap-3 mt-1">
+              <span [class]="'px-2 py-0.5 rounded-full text-xs font-bold ' + getSelectedCategoryBadge()">
+                {{ task.category || 'الفئة' }}
+              </span>
+              <div class="flex items-center gap-1 text-xs text-slate-500">
+                <span class="material-symbols-outlined text-yellow-500 text-sm"
+                  style="font-variation-settings: 'FILL' 1;">stars</span>
+                <span>{{ task.stars }} نجمة</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="flex gap-3 pt-2">
+        <button (click)="onSubmit()"
+          class="flex-1 bg-linear-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-3 rounded-lg font-bold flex items-center justify-center gap-2 shadow-lg shadow-primary/20 transition-all active:scale-95">
+          إضافة المهمة
+        </button>
+        <button (click)="goBack()"
+          class="px-6 py-3 rounded-lg border border-slate-200 text-slate-600 font-bold hover:bg-slate-50 transition-all">
+          إلغاء
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>

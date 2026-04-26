@@ -1,40 +1,45 @@
-<!-- video-library.html -->
-<main class="pt-24 px-6 max-w-5xl mx-auto">
-  <!-- Header -->
-  <div class="flex flex-row-reverse justify-between items-center mb-8">
-    <h1 class="font-h1-arabic text-h1-arabic text-primary">مكتبة الفيديوهات</h1>
-    <button
-      (click)="goToAdd()"
-      class="bg-gradient-to-r from-blue-400 to-blue-600 text-on-primary px-6 py-3 rounded-2xl flex items-center gap-2 shadow-lg hover:shadow-blue-200/50 transition-all active:scale-95"
-    >
-      <!-- <span class="material-symbols-outlined text-sm">add</span> -->
-      <span class="font-bold text-sm">إضافة فيديو</span>
+<main class="max-w-7xl mx-auto px-6 py-8 mt-5">
+
+  <!-- Page Header -->
+  <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+    <div>
+      <h1 class="font-h1-arabic text-2xl font-bold text-slate-800">إدارة الفيديوهات</h1>
+      <p class="text-outline text-sm mt-1">قم بإدارة وتعديل مكتبة الفيديوهات التعليمية الخاصة بك</p>
+    </div>
+    <button (click)="addVideo()"
+      class="bg-linear-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-lg font-bold flex items-center gap-2 shadow-lg shadow-primary/20 transition-all active:scale-95">
+      <span>إضافة فيديو جديد</span>
     </button>
   </div>
 
-  <!-- Category Filter -->
-  <app-category-filter (categoryChanged)="onCategoryChange($event)" />
 
-  <!-- Featured Video -->
-  <app-featured-video *ngIf="featuredVideo()" [video]="featuredVideo()!" />
-  <!-- Loading -->
-  <div *ngIf="isLoading()" class="flex justify-center items-center min-h-[300px]">
-    <div
-      class="w-12 h-12 rounded-full border-4 border-primary border-t-transparent animate-spin"
-    ></div>
+  <div *ngIf="!isLoading()">
+
+    <!-- Filters -->
+    <app-videos-filters (filterChanged)="onFilters($event)" />
+
+    <!-- Table -->
+    <app-videos-table
+      [videos]="filteredVideos()"
+      (deleteVideo)="deleteVideo($event)"
+    />
+
+    <!-- Empty State -->
+    <div *ngIf="filteredVideos().length === 0"
+      class="flex flex-col items-center justify-center py-20 text-slate-400">
+      <span class="material-symbols-outlined text-6xl mb-4">video_library</span>
+      <p class="font-bold text-lg">لا توجد فيديوهات في هذه الفئة</p>
+    </div>
+
   </div>
 
-  <!-- Video Grid -->
-  <section *ngIf="!isLoading()" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-    <app-video-card *ngFor="let video of filteredVideos()" [video]="video" />
-  </section>
-
-  <!-- Empty State -->
-  <div
-    *ngIf="!isLoading() && filteredVideos().length === 0"
-    class="flex flex-col items-center justify-center min-h-[300px] text-slate-400"
-  >
-    <!-- <span class="material-symbols-outlined text-6xl mb-4">videocam_off</span> -->
-    <p class="font-body-md-arabic text-lg">مفيش فيديوهات في الفئة دي</p>
-  </div>
 </main>
+
+<!-- FAB -->
+<div class="fixed bottom-6 right-6">
+  <div class="bg-white p-2 rounded-full shadow-xl border border-slate-100">
+    <button class="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center shadow-lg active:scale-95 transition-transform">
+      <span class="material-symbols-outlined">support_agent</span>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+<div class="flex flex-wrap gap-4 mb-6">
+  <button
+    *ngFor="let filter of filters"
+    (click)="selectFilter(filter)"
+    [class]="selectedFilter === filter.value
+      ? 'bg-white border border-primary text-primary px-4 py-2 rounded-lg text-sm font-bold'
+      : 'bg-white border border-slate-200 text-slate-600 px-4 py-2 rounded-lg text-sm font-bold hover:bg-slate-50'"
+  >
+    {{ filter.label }}
+  </button>
+</div>
