@@ -1,9 +1,9 @@
-<!-- video-card.html -->
-<div class="flex flex-col group cursor-pointer" (click)="navigateToDetails()">
-  <!-- Thumbnail / Placeholder -->
-  <div class="relative aspect-video rounded-3xl overflow-hidden mb-4 video-card-shadow">
+<div class="flex flex-col group cursor-pointer" (click)="navigateToDetails()" dir="rtl">
+  <!-- Thumbnail -->
+  <div
+    class="relative aspect-video rounded-[20px] overflow-hidden mb-4 shadow-[0_8px_30px_rgba(59,130,246,0.1)]"
+  >
     <div [class]="getPlaceholderClass()" class="w-full h-full flex items-center justify-center">
-      <!-- <span class="material-symbols-outlined text-white/60 text-6xl">play_circle</span> -->
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
@@ -20,7 +20,6 @@
     <div
       class="absolute bottom-3 left-3 bg-slate-900/70 text-white px-2 py-1 rounded-lg text-xs font-bold flex items-center gap-1"
     >
-      <!-- <span class="material-symbols-outlined text-xs text-yellow-400">stars</span> -->
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#facc15" class="w-3 h-3">
         <path
           d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
@@ -31,19 +30,16 @@
 
     <!-- Category Badge -->
     <div class="absolute top-3 right-3">
-      <span [class]="getCategoryClass()">
-        {{ video.category }}
-      </span>
+      <span [class]="getCategoryClass()">{{ video.category }}</span>
     </div>
 
-    <!-- Play Overlay on Hover -->
+    <!-- Hover Overlay -->
     <div
       class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"
     >
       <div
         class="w-14 h-14 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border-2 border-white/50"
       >
-        <!-- <span class="material-symbols-outlined text-white text-3xl">play_arrow</span> -->
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -58,13 +54,13 @@
 
   <!-- Title -->
   <h3
-    class="font-h2-arabic text-lg text-on-surface mb-1 text-right group-hover:text-primary transition-colors line-clamp-2"
+    class="font-bold text-lg text-[#191c1e] mb-1 text-right group-hover:text-[#0058be] transition-colors duration-200 line-clamp-2"
   >
     {{ video.title }}
   </h3>
 
   <!-- Description -->
-  <p class="text-slate-400 text-sm font-body-md-arabic text-right line-clamp-2 leading-relaxed">
+  <p class="text-[#424754] text-sm text-right line-clamp-2 leading-relaxed">
     {{ video.description }}
   </p>
 </div>
