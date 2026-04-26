@@ -1,0 +1,35 @@
+<main class="max-w-7xl mx-auto space-y-lg p-md md:p-lg lg:p-xl mt-12">
+
+  <!-- Welcome Section -->
+  <section class="flex flex-col md:flex-row justify-between items-start md:items-center gap-md">
+    <div>
+      <h1 class="font-h1-arabic text-h1-arabic text-primary mb-xs">لوحة التحكم - ونيسي</h1>
+      <p class="font-body-lg-arabic text-body-lg-arabic text-on-surface-variant">
+        مرحباً بك مجدداً في مركز إدارة رفيق الطفل الذكي
+      </p>
+    </div>
+    <div class="flex flex-wrap gap-sm">
+      <button (click)="goTo('/stories/add')"
+        class="gradient-btn text-white px-lg py-sm rounded-xl font-body-lg-arabic flex items-center gap-xs hover:scale-105 transition-transform active:scale-95">
+        إضافة قصة
+      </button>
+      <button (click)="goTo('/videos/add')"
+        class="purple-gradient-btn text-white px-lg py-sm rounded-xl font-body-lg-arabic flex items-center gap-xs hover:scale-105 transition-transform active:scale-95">
+        إضافة فيديو
+      </button>
+      <button (click)="goTo('/tasks/add')"
+        class="bg-secondary-container text-white px-lg py-sm rounded-xl font-body-lg-arabic flex items-center gap-xs hover:scale-105 transition-transform active:scale-95">
+        إضافة مهمة
+      </button>
+    </div>
+  </section>
+
+  <!-- Summary Cards -->
+  <app-summary-cards />
+
+  <!-- Activity Table -->
+  <section class="grid grid-cols-1 gap-card-gap mt-16" >
+    <app-activity-table />
+  </section>
+
+</main>

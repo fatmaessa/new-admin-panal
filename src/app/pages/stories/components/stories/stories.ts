@@ -3,10 +3,13 @@ import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { STORY, StoryType } from '../../models/models';
 import { RouterLink } from '@angular/router';
 import { Sorties } from '../../services/sorties';
+import { Router } from '@angular/router';
+import { StoriesFiltersComponent } from '../stories-filters/stories-filters';
+import { StoriesTableComponent} from '../stories-table/stories-table';
 
 @Component({
   selector: 'app-stories',
-  imports: [RouterLink],
+  imports: [RouterLink ,StoriesFiltersComponent, StoriesTableComponent],
   templateUrl: './stories.html',
   styleUrl: './stories.scss',
 })
@@ -15,6 +18,9 @@ export class Stories implements OnInit {
   ngOnInit(): void {
     this.getAllStories();
   }
+  addStory() { this.router.navigate(['/stories/add']); }
+    constructor(private router: Router) {}
+
 
   allStories = signal<STORY[]>([]);
 

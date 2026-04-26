@@ -1,35 +1,29 @@
-// video-library.ts
+import Swal from 'sweetalert2';
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CategoryFilterComponent } from '../category-filter/category-filter';
-import { FeaturedVideoComponent } from '../featured-video/featured-video';
-import { VideoCardComponent } from '../video-card/video-card';
-import { Video } from '../../models/models';
-import { Videos } from '../../services/videos';
 import { Router } from '@angular/router';
+import { VideosFiltersComponent } from '../videos-filters/videos-filters';
+import { VideosTableComponent, VIDEO } from '../videos-table/videos-table';
+import { Videos } from '../../services/videos';
 
 @Component({
-  selector: 'app-video-library',
+  selector: 'app-videos-page',
   standalone: true,
-  imports: [CommonModule, VideoCardComponent, FeaturedVideoComponent, CategoryFilterComponent],
+  imports: [CommonModule, VideosFiltersComponent, VideosTableComponent],
   templateUrl: './video-library.html',
-  styleUrl: './video-library.scss',
 })
 export class VideoLibraryComponent implements OnInit {
   private videoServices = inject(Videos);
   private router = inject(Router);
 
-  // featuredVideo = signal<Video{}>({});
-  featuredVideo = signal<Video | null>(null);
-
-  allVideos = signal<Video[]>([]);
-  selectedCategory = signal<string>('الكل');
+  allVideos = signal<VIDEO[]>([]);
+  selectedFilter = signal<string>('الكل');
   isLoading = signal(true);
 
   filteredVideos = computed(() => {
-    const cat = this.selectedCategory();
+    const filter = this.selectedFilter();
     const all = this.allVideos();
-    return cat === 'الكل' ? all : all.filter((v) => v.category === cat);
+    return filter === 'الكل' ? all : all.filter(v => v.category === filter);
   });
 
   ngOnInit(): void {
@@ -42,16 +36,42 @@ export class VideoLibraryComponent implements OnInit {
       next: (res: any) => {
         this.allVideos.set(res.data);
         this.isLoading.set(false);
-        this.featuredVideo.set(res.data[0]);
       },
       error: () => this.isLoading.set(false),
     });
   }
 
-  onCategoryChange(category: string) {
-    this.selectedCategory.set(category);
+  onFilters(type: string) {
+    this.selectedFilter.set(type);
   }
-  goToAdd() {
+
+  addVideo() {
     this.router.navigate(['/videos/add']);
+  }
+
+  deleteVideo(id: number) {
+    Swal.fire({
+      title: 'هل أنت متأكد؟',
+      text: 'لن تتمكن من التراجع عن هذا الإجراء!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3B82F6',
+      cancelButtonColor: '#94a3b8',
+      confirmButtonText: 'نعم، احذفه!',
+      cancelButtonText: 'إلغاء',
+      reverseButtons: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.videoServices.deleteVideo(id.toString()).subscribe();
+        this.allVideos.update(videos => videos.filter(v => v.videoId !== id));
+        Swal.fire({
+          title: 'تم الحذف!',
+          text: 'تم حذف الفيديو بنجاح.',
+          icon: 'success',
+          timer: 1500,
+          showConfirmButton: false,
+        });
+      }
+    });
   }
 }
