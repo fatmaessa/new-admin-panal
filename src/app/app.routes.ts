@@ -4,6 +4,7 @@ import { HomePage } from './pages/home-page/home-page';
 import { VideoLibraryComponent } from './pages/videos/components/video-library/video-library';
 import { VideoDetailsComponent } from './pages/videos/components/video-details/video-details';
 import { AddVideo } from './pages/videos/components/add-video/add-video';
+import { TasksLibrary } from './pages/tasks/components/tasks-library/tasks-library';
 
 export const routes: Routes = [
   { path: 'login', component: LogInPage },
@@ -12,6 +13,7 @@ export const routes: Routes = [
   { path: 'videos/edit/:id', component: AddVideo }, // ← تاني
   { path: 'videos/:id', component: VideoDetailsComponent }, // ← تالت
   { path: 'videos', component: VideoLibraryComponent },
+  { path: 'tasks', component: TasksLibrary },
   {
     path: 'add-story',
     loadComponent: () =>

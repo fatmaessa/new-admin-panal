@@ -1,0 +1,166 @@
+<div class="min-h-screen bg-[#f7f9fb] p-5 md:p-8 lg:p-12" dir="rtl">
+  <main class="max-w-3xl mx-auto space-y-8">
+    <!-- Header -->
+    <header class="text-center animate-[fadeSlideDown_0.5s_ease_both]">
+      <h1 class="text-[32px] font-bold leading-[1.4] text-[#0058be] mb-1">
+        {{ isEditMode() ? 'تعديل المهمة' : 'إضافة مهمة جديدة' }}
+      </h1>
+      <p class="text-[18px] font-medium leading-[1.6] text-[#424754]">
+        أضف مهمة تفاعلية جديدة للأطفال وحدد مكافأتها
+      </p>
+    </header>
+
+    <!-- Form Card -->
+    <div
+      class="bg-white rounded-[24px] p-8 shadow-[0_8px_30px_rgba(59,130,246,0.08)] border border-blue-50 animate-[fadeSlideUp_0.5s_0.1s_ease_both]"
+    >
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-6">
+        <!-- عنوان المهمة -->
+        <div>
+          <label class="block text-[#191c1e] font-bold mb-2">عنوان المهمة</label>
+          <input
+            type="text"
+            formControlName="title"
+            placeholder="مثلاً: أداء الصلوات في وقتها"
+            class="w-full px-5 py-4 rounded-2xl border-2 border-blue-50 outline-none text-[#191c1e] bg-[#f7f9fb] placeholder-[#727785] focus:border-[#0058be] focus:ring-4 focus:ring-blue-500/10 transition-all duration-200"
+          />
+          <p
+            *ngIf="form.get('title')?.invalid && form.get('title')?.touched"
+            class="text-red-400 text-xs mt-1"
+          >
+            العنوان مطلوب
+          </p>
+        </div>
+
+        <!-- وصف المهمة -->
+        <div>
+          <label class="block text-[#191c1e] font-bold mb-2">وصف المهمة</label>
+          <textarea
+            formControlName="description"
+            rows="3"
+            placeholder="اشرح للطفل ما المطلوب منه في هذه المهمة..."
+            class="w-full px-5 py-4 rounded-2xl border-2 border-blue-50 outline-none text-[#191c1e] bg-[#f7f9fb] placeholder-[#727785] resize-none focus:border-[#0058be] focus:ring-4 focus:ring-blue-500/10 transition-all duration-200"
+          ></textarea>
+          <p
+            *ngIf="form.get('description')?.invalid && form.get('description')?.touched"
+            class="text-red-400 text-xs mt-1"
+          >
+            الوصف مطلوب
+          </p>
+        </div>
+
+        <!-- الفئة + الصعوبة -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label class="block text-[#191c1e] font-bold mb-2">فئة المهمة</label>
+            <select
+              formControlName="category"
+              class="w-full px-5 py-4 rounded-2xl border-2 border-blue-50 outline-none text-[#191c1e] bg-[#f7f9fb] appearance-none focus:border-[#0058be] focus:ring-4 focus:ring-blue-500/10 transition-all duration-200"
+            >
+              <option value="" disabled selected>اختر الفئة</option>
+              <option value="ديني">🕌 دينية</option>
+              <option value="مدرسي">🎒 مدرسية</option>
+              <option value="منزلي">🏠 منزلية</option>
+            </select>
+            <p
+              *ngIf="form.get('category')?.invalid && form.get('category')?.touched"
+              class="text-red-400 text-xs mt-1"
+            >
+              الفئة مطلوبة
+            </p>
+          </div>
+
+          <div>
+            <label class="block text-[#191c1e] font-bold mb-2">مستوى الصعوبة</label>
+            <select
+              formControlName="difficulty"
+              class="w-full px-5 py-4 rounded-2xl border-2 border-blue-50 outline-none text-[#191c1e] bg-[#f7f9fb] appearance-none focus:border-[#0058be] focus:ring-4 focus:ring-blue-500/10 transition-all duration-200"
+            >
+              <option value="" disabled selected>اختر الصعوبة</option>
+              <option value="easy">🟢 سهل</option>
+              <option value="medium">🟡 متوسط</option>
+              <option value="hard">🔴 صعب</option>
+            </select>
+            <p
+              *ngIf="form.get('difficulty')?.invalid && form.get('difficulty')?.touched"
+              class="text-red-400 text-xs mt-1"
+            >
+              مستوى الصعوبة مطلوب
+            </p>
+          </div>
+        </div>
+
+        <!-- المدة + النقاط -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label class="block text-[#191c1e] font-bold mb-2">مدة المهمة</label>
+            <input
+              type="text"
+              formControlName="duration"
+              placeholder="مثال: 30 دقيقة"
+              class="w-full px-5 py-4 rounded-2xl border-2 border-blue-50 outline-none text-[#191c1e] bg-[#f7f9fb] placeholder-[#727785] focus:border-[#0058be] focus:ring-4 focus:ring-blue-500/10 transition-all duration-200"
+            />
+          </div>
+
+          <div>
+            <label class="block text-[#191c1e] font-bold mb-2">النقاط المكافئة</label>
+            <input
+              type="number"
+              formControlName="pointsRewarded"
+              placeholder="مثال: 50"
+              class="w-full px-5 py-4 rounded-2xl border-2 border-blue-50 outline-none text-[#191c1e] bg-[#f7f9fb] focus:border-[#0058be] focus:ring-4 focus:ring-blue-500/10 transition-all duration-200"
+            />
+            <p
+              *ngIf="form.get('pointsRewarded')?.invalid && form.get('pointsRewarded')?.touched"
+              class="text-red-400 text-xs mt-1"
+            >
+              النقاط مطلوبة وأكبر من 0
+            </p>
+          </div>
+        </div>
+
+        <!-- رابط الفيديو -->
+        <div>
+          <label class="block text-[#191c1e] font-bold mb-2">رابط فيديو توضيحي (اختياري)</label>
+          <input
+            type="text"
+            formControlName="videoUrl"
+            placeholder="https://youtube.com/..."
+            class="w-full px-5 py-4 rounded-2xl border-2 border-blue-50 outline-none text-[#191c1e] bg-[#f7f9fb] placeholder-[#727785] focus:border-[#0058be] focus:ring-4 focus:ring-blue-500/10 transition-all duration-200"
+          />
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex items-center gap-4 pt-2">
+          <button
+            type="submit"
+            class="flex-1 flex justify-center items-center gap-2 py-4 rounded-2xl text-white font-bold text-base bg-gradient-to-l from-[#3B82F6] to-[#60A5FA] shadow-[0_4px_12px_rgba(59,130,246,0.3)] hover:scale-[1.02] active:scale-95 transition-transform duration-200"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            {{ isEditMode() ? 'حفظ التعديلات' : 'حفظ ونشر المهمة' }}
+          </button>
+
+          <button
+            type="button"
+            (click)="onCancel()"
+            class="px-8 py-4 rounded-2xl font-bold text-base bg-[#f2f4f6] text-[#424754] hover:bg-[#e6e8ea] active:scale-95 transition-all duration-200"
+          >
+            إلغاء
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+</div>
