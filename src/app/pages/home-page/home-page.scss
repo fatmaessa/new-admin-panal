@@ -1,0 +1,46 @@
+@keyframes fadeSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+:host {
+  font-family: 'Cairo', sans-serif;
+}
+
+/* Register keyframes so Tailwind arbitrary animate-[] works */
+.animate-\[fadeSlideDown_0\.5s_ease_both\] {
+  animation: fadeSlideDown 0.5s ease both;
+}
+
+.animate-\[fadeSlideUp_0\.5s_0\.1s_ease_both\] {
+  animation: fadeSlideUp 0.5s 0.1s ease both;
+}
+
+.animate-\[fadeSlideUp_0\.5s_0\.2s_ease_both\] {
+  animation: fadeSlideUp 0.5s 0.2s ease both;
+}
+
+.animate-\[fadeSlideUp_0\.5s_0\.3s_ease_both\] {
+  animation: fadeSlideUp 0.5s 0.3s ease both;
+}
+
+.animate-\[fadeSlideUp_0\.5s_0\.4s_ease_both\] {
+  animation: fadeSlideUp 0.5s 0.4s ease both;
+}

@@ -1,66 +1,121 @@
-<main class="pt-24 px-6 max-w-3xl mx-auto min-h-screen">
-  <header class="mb-10 text-center">
-    <h1 class="text-3xl font-black text-slate-800 dark:text-white mb-2">
-      {{ isEditMode() ? 'تعديل القصة' : 'إضافة قصة سحرية جديدة' }}
-    </h1>
-    <p class="text-slate-500 dark:text-slate-400">املأ البيانات بالأسفل لتنشر مغامرة جديدة للأطفال</p>
-  </header>
+<div class="min-h-screen bg-[#f7f9fb] p-5 md:p-8 lg:p-12" dir="rtl">
+  <main class="max-w-3xl mx-auto space-y-8">
+    <!-- Header -->
+    <header class="text-center animate-[fadeSlideDown_0.5s_ease_both]">
+      <h1 class="text-[32px] font-bold leading-[1.4] text-[#0058be] mb-1">
+        {{ isEditMode() ? 'تعديل القصة' : 'إضافة قصة سحرية جديدة' }}
+      </h1>
+      <p class="text-[18px] font-medium leading-[1.6] text-[#424754]">
+        املأ البيانات بالأسفل لتنشر مغامرة جديدة للأطفال
+      </p>
+    </header>
 
-  <div class="bg-white dark:bg-slate-800 rounded-[2.5rem] p-8 shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-700">
-    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-6">
-      
-      <div>
-        <label class="block text-slate-700 dark:text-slate-300 font-bold mb-2 mr-2">عنوان القصة</label>
-        <input type="text" formControlName="title" placeholder="مثلاً: مغامرة في وادي الألوان"
-          class="w-full px-5 py-4 rounded-2xl border-2 transition-all outline-none focus:ring-4 focus:ring-purple-500/10 border-slate-100 focus:border-purple-500 dark:bg-slate-900 dark:border-slate-700 dark:text-white text-slate-800" />
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- Form Card -->
+    <div
+      class="bg-white rounded-[24px] p-8 shadow-[0_8px_30px_rgba(59,130,246,0.08)] border border-blue-50 animate-[fadeSlideUp_0.5s_0.1s_ease_both]"
+    >
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-6">
+        <!-- عنوان القصة -->
         <div>
-          <label class="block text-slate-700 dark:text-slate-300 font-bold mb-2 mr-2">تصنيف القصة</label>
-          <select formControlName="category"
-            class="w-full px-5 py-4 rounded-2xl border-2 border-slate-100 focus:border-purple-500 outline-none transition-all dark:bg-slate-900 dark:border-slate-700 dark:text-white text-slate-800 appearance-none">
-            <option value="" disabled selected>اختر التصنيف</option>
-            @for (cat of typeLookUps(); track cat) {
-              <option [value]="cat">{{cat}}</option>
-            }
-          </select>
+          <label class="block text-[#191c1e] font-bold mb-2">عنوان القصة</label>
+          <input
+            type="text"
+            formControlName="title"
+            placeholder="مثلاً: مغامرة في وادي الألوان"
+            class="w-full px-5 py-4 rounded-2xl border-2 border-blue-50 outline-none text-[#191c1e] bg-[#f7f9fb] placeholder-[#727785] focus:border-[#0058be] focus:ring-4 focus:ring-blue-500/10 transition-all duration-200"
+          />
         </div>
 
-        <div>
-          <label class="block text-slate-700 dark:text-slate-300 font-bold mb-2 mr-2">النقاط المكافئة</label>
-          <input type="number" formControlName="pointsRewarded" placeholder="مثال: 50"
-            class="w-full px-5 py-4 rounded-2xl border-2 border-slate-100 focus:border-purple-500 outline-none transition-all dark:bg-slate-900 dark:border-slate-700 dark:text-white text-slate-800" />
+        <!-- تصنيف + نقاط -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label class="block text-[#191c1e] font-bold mb-2">تصنيف القصة</label>
+            <select
+              formControlName="category"
+              class="w-full px-5 py-4 rounded-2xl border-2 border-blue-50 outline-none text-[#191c1e] bg-[#f7f9fb] appearance-none focus:border-[#0058be] focus:ring-4 focus:ring-blue-500/10 transition-all duration-200"
+            >
+              <option value="" disabled selected>اختر التصنيف</option>
+              @for (cat of typeLookUps(); track cat) {
+                <option [value]="cat">{{ cat }}</option>
+              }
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-[#191c1e] font-bold mb-2">النقاط المكافئة</label>
+            <input
+              type="number"
+              formControlName="pointsRewarded"
+              placeholder="مثال: 50"
+              class="w-full px-5 py-4 rounded-2xl border-2 border-blue-50 outline-none text-[#191c1e] bg-[#f7f9fb] focus:border-[#0058be] focus:ring-4 focus:ring-blue-500/10 transition-all duration-200"
+            />
+          </div>
         </div>
-      </div>
 
-      <div>
-        <label class="block text-slate-700 dark:text-slate-300 font-bold mb-2 mr-2">رابط الصورة (Image URL)</label>
-        <input type="text" formControlName="url" placeholder="https://example.com/image.jpg"
-          class="w-full px-5 py-4 rounded-2xl border-2 border-slate-100 focus:border-purple-500 outline-none transition-all dark:bg-slate-900 dark:border-slate-700 dark:text-white text-slate-800" />
-      </div>
+        <!-- رابط الصورة -->
+        <div>
+          <label class="block text-[#191c1e] font-bold mb-2">رابط الصورة (Image URL)</label>
+          <input
+            type="text"
+            formControlName="url"
+            placeholder="https://example.com/image.jpg"
+            class="w-full px-5 py-4 rounded-2xl border-2 border-blue-50 outline-none text-[#191c1e] bg-[#f7f9fb] placeholder-[#727785] focus:border-[#0058be] focus:ring-4 focus:ring-blue-500/10 transition-all duration-200"
+          />
+        </div>
 
-      <div>
-        <label class="block text-slate-700 dark:text-slate-300 font-bold mb-2 mr-2">رابط ملف الصوت (Audio URL)</label>
-        <input type="text" formControlName="audioUrl" placeholder="https://example.com/audio.mp3"
-          class="w-full px-5 py-4 rounded-2xl border-2 border-slate-100 focus:border-purple-500 outline-none transition-all dark:bg-slate-900 dark:border-slate-700 dark:text-white text-slate-800" />
-      </div>
+        <!-- رابط الصوت -->
+        <div>
+          <label class="block text-[#191c1e] font-bold mb-2">رابط ملف الصوت (Audio URL)</label>
+          <input
+            type="text"
+            formControlName="audioUrl"
+            placeholder="https://example.com/audio.mp3"
+            class="w-full px-5 py-4 rounded-2xl border-2 border-blue-50 outline-none text-[#191c1e] bg-[#f7f9fb] placeholder-[#727785] focus:border-[#0058be] focus:ring-4 focus:ring-blue-500/10 transition-all duration-200"
+          />
+        </div>
 
-      <div>
-        <label class="block text-slate-700 dark:text-slate-300 font-bold mb-2 mr-2">نص القصة</label>
-        <textarea formControlName="storyText" rows="4" placeholder="اكتب تفاصيل القصة هنا..."
-          class="w-full px-5 py-4 rounded-2xl border-2 border-slate-100 focus:border-purple-500 outline-none transition-all dark:bg-slate-900 dark:border-slate-700 dark:text-white text-slate-800"></textarea>
-      </div>
+        <!-- نص القصة -->
+        <div>
+          <label class="block text-[#191c1e] font-bold mb-2">نص القصة</label>
+          <textarea
+            formControlName="storyText"
+            rows="4"
+            placeholder="اكتب تفاصيل القصة هنا..."
+            class="w-full px-5 py-4 rounded-2xl border-2 border-blue-50 outline-none text-[#191c1e] bg-[#f7f9fb] placeholder-[#727785] resize-none focus:border-[#0058be] focus:ring-4 focus:ring-blue-500/10 transition-all duration-200"
+          ></textarea>
+        </div>
 
-      <div class="flex items-center gap-4 pt-6">
-        <button type="submit" class="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold py-4 rounded-2xl shadow-lg transition-all active:scale-95 flex justify-center items-center gap-2">
-          <span class="material-symbols-outlined">save</span>
-          حفظ ونشر القصة
-        </button>
-        <button type="button" (click)="onCancel()" class="px-8 py-4 rounded-2xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 font-bold hover:bg-slate-200 transition-all active:scale-95">
-          إلغاء
-        </button>
-      </div>
-    </form>
-  </div>
-</main>
+        <!-- Buttons -->
+        <div class="flex items-center gap-4 pt-2">
+          <button
+            type="submit"
+            class="flex-1 flex justify-center items-center gap-2 py-4 rounded-2xl text-white font-bold text-base bg-gradient-to-l from-[#3B82F6] to-[#60A5FA] shadow-[0_4px_12px_rgba(59,130,246,0.3)] hover:scale-[1.02] active:scale-95 transition-transform duration-200"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            حفظ ونشر القصة
+          </button>
+
+          <button
+            type="button"
+            (click)="onCancel()"
+            class="px-8 py-4 rounded-2xl font-bold text-base bg-[#f2f4f6] text-[#424754] hover:bg-[#e6e8ea] active:scale-95 transition-all duration-200"
+          >
+            إلغاء
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+</div>
