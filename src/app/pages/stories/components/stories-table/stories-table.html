@@ -1,0 +1,83 @@
+<div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+  <div class="overflow-x-auto">
+    <table class="w-full text-right border-collapse">
+      <thead>
+        <tr class="bg-slate-50 border-b border-slate-200">
+          <th class="px-6 py-4 text-sm font-bold text-slate-600">اسم القصة</th>
+          <th class="px-6 py-4 text-sm font-bold text-slate-600">الفئة</th>
+          <th class="px-6 py-4 text-sm font-bold text-slate-600">المكافأة (نجوم)</th>
+          <th class="px-6 py-4 text-sm font-bold text-slate-600 text-center">الإجراءات</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-slate-100">
+        <tr *ngFor="let story of stories" class="hover:bg-slate-50 transition-colors">
+
+          <!-- اسم القصة -->
+          <td class="px-6 py-4">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-lg overflow-hidden bg-slate-50 flex-shrink-0">
+                <img
+                  [src]="story.url"
+                  [alt]="story.title"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <div>
+                <span class="font-semibold text-slate-800 block">{{ story.title}}</span>
+              </div>
+            </div>
+          </td>
+
+          <!-- الفئة -->
+          <td class="px-6 py-4">
+            <span [class]="'px-3 py-1 rounded-full text-xs font-bold ' + getCategoryBadge(story.category)">
+              {{ story.category }}
+            </span>
+          </td>
+
+          <!-- المكافأة -->
+          <td class="px-6 py-4">
+            <div class="flex items-center gap-1 font-bold text-slate-700">
+              <span class="material-symbols-outlined text-yellow-500 text-sm"
+                style="font-variation-settings: 'FILL' 1;">stars</span>
+              <span>{{ story.pointsRewarded }}</span>
+            </div>
+          </td>
+
+          <!-- التاريخ -->
+          <!-- <td class="px-6 py-4 text-sm text-slate-500">{{ story.date }}</td> -->
+
+          <!-- الإجراءات -->
+          <td class="px-6 py-4">
+            <div class="flex items-center justify-center gap-2">
+              <button (click)="onEdit(story)"
+                class="p-2 text-slate-400 hover:text-primary transition-colors" title="تعديل">
+                <span class="material-symbols-outlined">edit</span>
+              </button>
+              <button (click)="onDelete(story.storyId)"
+                class="p-2 text-slate-400 hover:text-error transition-colors" title="حذف">
+                <span class="material-symbols-outlined">delete</span>
+              </button>
+            </div>
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <div class="bg-slate-50 px-6 py-4 border-t border-slate-200 flex items-center justify-between">
+    <span class="text-sm text-slate-500">عرض {{ stories.length }} من أصل ٤٨ قصة</span>
+    <div class="flex gap-2">
+      <button (click)="prevPage()" [disabled]="currentPage === 1"
+        class="px-3 py-1 border border-slate-300 rounded hover:bg-white transition-colors text-sm disabled:opacity-50">
+        السابق
+      </button>
+      <button (click)="nextPage()"
+        class="px-3 py-1 border border-slate-300 rounded hover:bg-white transition-colors text-sm">
+        التالي
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,60 @@
+<div class="bg-surface-container-lowest rounded-[24px] soft-shadow overflow-hidden border border-blue-50">
+  <!-- Header -->
+  <div class="p-lg flex justify-between items-center bg-white">
+    <h3 class="font-h2-arabic text-h2-arabic text-on-surface">آخر النشاطات</h3>
+    <button class="text-primary font-bold text-sm flex items-center gap-xs hover:underline">
+      عرض الكل
+      <i class="fa-solid fa-arrow-left mr-1"></i>
+    </button>
+  </div>
+  <!-- Table -->
+  <div class="overflow-x-auto">
+    <table class="w-full text-right border-collapse">
+      <thead>
+        <tr class="bg-surface-container-low text-on-surface-variant">
+          <th class="p-md font-bold text-sm">المحتوى</th>
+          <th class="p-md font-bold text-sm">النوع</th>
+          <th class="p-md font-bold text-sm">النقاط</th>
+          <th class="p-md font-bold text-sm text-center">الإجراءات</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-surface-container">
+        <tr *ngFor="let item of activities" class="hover:bg-blue-50/30 transition-colors group">
+
+          <!-- المحتوى -->
+          <td class="p-md">
+            <div class="flex items-center gap-sm">
+              <div class="w-10 h-10 rounded-lg overflow-hidden shrink-0">
+                <img [src]="item.image" [alt]="item.title" class="w-full h-full object-cover" />
+              </div>
+              <span class="font-bold">{{ item.title }}</span>
+            </div>
+          </td>
+
+          <!-- النوع -->
+          <td class="p-md">
+            <span [class]="'px-sm py-xs rounded-full text-xs font-bold ' + getTypeBadge(item.type)">
+              {{ item.type }}
+            </span>
+          </td>
+
+          <!-- النقاط -->
+          <td class="p-md">
+            <div class="flex items-center gap-xs font-bold text-slate-700">
+              <i class="fa-solid fa-star text-yellow-500 text-xs"></i>
+              <span>{{ item.points }}</span>
+            </div>
+          </td>
+
+          <!-- الإجراءات -->
+          <td class="p-md text-center">
+            <button class="p-sm text-on-surface-variant hover:text-primary transition-colors">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

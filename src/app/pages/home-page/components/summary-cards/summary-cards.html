@@ -1,0 +1,13 @@
+<section class="grid grid-cols-1 md:grid-cols-3 gap-card-gap">
+  <div *ngFor="let card of cards"
+    [class]="'bg-surface-container-lowest p-lg rounded-[24px] soft-shadow border border-blue-50 flex items-center justify-between group hover:border-' + card.hoverColor + ' transition-colors'">
+    <div class="space-y-xs">
+      <p class="font-label-sm-arabic text-on-surface-variant">{{ card.label }}</p>
+      <h2 [class]="'font-h1-arabic text-h1-arabic ' + card.textColor">{{ card.value }}</h2>
+     
+    </div>
+    <div [class]="'w-16 h-16 rounded-2xl flex items-center justify-center transition-all text-2xl ' + card.iconBg">
+      <i [class]="card.icon"></i>
+    </div>
+  </div>
+</section>

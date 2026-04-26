@@ -1,9 +1,11 @@
 import { Routes } from '@angular/router';
 import { LogInPage } from './pages/log-in-page/log-in-page';
-import { HomePage } from './pages/home-page/home-page';
+import { HomePage } from './pages/home-page/components/home/home-page';
 import { VideoLibraryComponent } from './pages/videos/components/video-library/video-library';
 import { VideoDetailsComponent } from './pages/videos/components/video-details/video-details';
 import { AddVideo } from './pages/videos/components/add-video/add-video';
+import { TasksPageComponent } from './pages/tasks/components/tasks/tasks';
+import { AddTaskComponent } from './pages/tasks/components/add-task/add-task';
 
 export const routes: Routes = [
   { path: 'login', component: LogInPage },
@@ -12,6 +14,9 @@ export const routes: Routes = [
   { path: 'videos/edit/:id', component: AddVideo }, // ← تاني
   { path: 'videos/:id', component: VideoDetailsComponent }, // ← تالت
   { path: 'videos', component: VideoLibraryComponent },
+  { path: 'tasks', component: TasksPageComponent },
+    { path: 'tasks/add', component: AddTaskComponent   },
+
   {
     path: 'add-story',
     loadComponent: () =>
