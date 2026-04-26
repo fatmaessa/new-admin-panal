@@ -1,40 +1,71 @@
-<!-- video-library.html -->
-<main class="pt-24 px-6 max-w-5xl mx-auto">
-  <!-- Header -->
-  <div class="flex flex-row-reverse justify-between items-center mb-8">
-    <h1 class="font-h1-arabic text-h1-arabic text-primary">مكتبة الفيديوهات</h1>
-    <button
-      (click)="goToAdd()"
-      class="bg-gradient-to-r from-blue-400 to-blue-600 text-on-primary px-6 py-3 rounded-2xl flex items-center gap-2 shadow-lg hover:shadow-blue-200/50 transition-all active:scale-95"
+<div class="min-h-screen bg-[#f7f9fb] p-5 md:p-8 lg:p-12" dir="rtl">
+  <main class="max-w-5xl mx-auto space-y-8">
+    <!-- Header -->
+    <header
+      class="flex flex-col md:flex-row md:items-center justify-between gap-6 animate-[fadeSlideDown_0.5s_ease_both]"
     >
-      <!-- <span class="material-symbols-outlined text-sm">add</span> -->
-      <span class="font-bold text-sm">إضافة فيديو</span>
-    </button>
-  </div>
+      <div>
+        <h1 class="text-[32px] font-bold leading-[1.4] text-[#0058be] mb-1">مكتبة الفيديوهات</h1>
+        <p class="text-[18px] font-medium leading-[1.6] text-[#424754]">
+          استعرض وأدر جميع الفيديوهات المتاحة
+        </p>
+      </div>
+      <button
+        (click)="goToAdd()"
+        class="flex items-center gap-2 px-8 py-3 rounded-xl text-white font-bold text-base bg-gradient-to-l from-[#7C3AED] to-[#A78BFA] shadow-[0_4px_12px_rgba(124,58,237,0.3)] hover:scale-105 active:scale-95 transition-transform duration-200 self-start md:self-auto"
+      >
+        ➕ إضافة فيديو
+      </button>
+    </header>
 
-  <!-- Category Filter -->
-  <app-category-filter (categoryChanged)="onCategoryChange($event)" />
+    <!-- Category Filter -->
+    <section class="animate-[fadeSlideUp_0.5s_0.1s_ease_both]">
+      <app-category-filter (categoryChanged)="onCategoryChange($event)" />
+    </section>
 
-  <!-- Featured Video -->
-  <app-featured-video *ngIf="featuredVideo()" [video]="featuredVideo()!" />
-  <!-- Loading -->
-  <div *ngIf="isLoading()" class="flex justify-center items-center min-h-[300px]">
+    <!-- Featured Video -->
+    <section *ngIf="featuredVideo()" class="animate-[fadeSlideUp_0.5s_0.2s_ease_both]">
+      <app-featured-video [video]="featuredVideo()!" />
+    </section>
+
+    <!-- Loading -->
+    <div *ngIf="isLoading()" class="flex justify-center items-center min-h-[300px]">
+      <div
+        class="w-12 h-12 rounded-full border-4 border-[#0058be] border-t-transparent animate-spin"
+      ></div>
+    </div>
+
+    <!-- Video Grid -->
+    <section
+      *ngIf="!isLoading()"
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-[fadeSlideUp_0.5s_0.3s_ease_both]"
+    >
+      <app-video-card *ngFor="let video of filteredVideos()" [video]="video" />
+    </section>
+
+    <!-- Empty State -->
     <div
-      class="w-12 h-12 rounded-full border-4 border-primary border-t-transparent animate-spin"
-    ></div>
-  </div>
-
-  <!-- Video Grid -->
-  <section *ngIf="!isLoading()" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-    <app-video-card *ngFor="let video of filteredVideos()" [video]="video" />
-  </section>
-
-  <!-- Empty State -->
-  <div
-    *ngIf="!isLoading() && filteredVideos().length === 0"
-    class="flex flex-col items-center justify-center min-h-[300px] text-slate-400"
-  >
-    <!-- <span class="material-symbols-outlined text-6xl mb-4">videocam_off</span> -->
-    <p class="font-body-md-arabic text-lg">مفيش فيديوهات في الفئة دي</p>
-  </div>
-</main>
+      *ngIf="!isLoading() && filteredVideos().length === 0"
+      class="flex flex-col items-center justify-center min-h-[300px] text-[#424754] bg-white rounded-[24px] border border-blue-50 shadow-[0_8px_30px_rgba(59,130,246,0.08)]"
+    >
+      <div
+        class="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center text-[#0058be] mb-4"
+      >
+        <svg
+          class="w-8 h-8"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="1.5"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M12 18.75H4.5a2.25 2.25 0 01-2.25-2.25V9m12.841 9.091L16.5 19.5m-1.409-1.409c.407-.713.633-1.527.633-2.397A6.75 6.75 0 006.436 9.44c-.87 0-1.684.226-2.397.632m13.792 7.319"
+          />
+        </svg>
+      </div>
+      <p class="text-lg font-bold">مفيش فيديوهات في الفئة دي</p>
+    </div>
+  </main>
+</div>
