@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Videos } from '../videos/services/videos';
+import { Sorties } from '../stories/services/sorties';
+import { Tasks } from '../tasks/services/tasks';
 
 @Component({
   selector: 'app-home-page',
@@ -7,48 +10,70 @@ import { CommonModule } from '@angular/common';
   templateUrl: './home-page.html',
   styleUrl: './home-page.scss',
 })
-export class HomePage {
-  stats = [
-    {
-      label: 'إجمالي القصص',
-      value: '1,284',
-      badge: '12%+ هذا الشهر',
-      badgeClass: 'bg-green-50 text-green-600',
-      badgeIcon: '↗',
-      valueClass: 'text-[#0058be]',
-      borderHover: 'hover:border-[#0058be]',
-      iconBg: 'bg-blue-50 group-hover:bg-[#0058be]',
-      iconColor: 'text-[#0058be]',
-      delay: 'animate-[fadeSlideUp_0.5s_0.1s_ease_both]',
-      icon: 'book',
-    },
-    {
-      label: 'إجمالي الفيديوهات',
-      value: '856',
-      badge: '5%+ هذا الأسبوع',
-      badgeClass: 'bg-green-50 text-green-600',
-      badgeIcon: '↗',
-      valueClass: 'text-[#6b38d4]',
-      borderHover: 'hover:border-[#6b38d4]',
-      iconBg: 'bg-purple-50 group-hover:bg-[#6b38d4]',
-      iconColor: 'text-[#6b38d4]',
-      delay: 'animate-[fadeSlideUp_0.5s_0.2s_ease_both]',
-      icon: 'video',
-    },
-    {
-      label: 'إجمالي المهام',
-      value: '3,412',
-      badge: 'معدل إنجاز عالي',
-      badgeClass: 'bg-blue-50 text-[#0058be]',
-      badgeIcon: '✔',
-      valueClass: 'text-[#4648d4]',
-      borderHover: 'hover:border-[#4648d4]',
-      iconBg: 'bg-indigo-50 group-hover:bg-[#4648d4]',
-      iconColor: 'text-[#4648d4]',
-      delay: 'animate-[fadeSlideUp_0.5s_0.3s_ease_both]',
-      icon: 'check',
-    },
-  ];
+export class HomePage implements OnInit {
+  ngOnInit(): void {
+    this.getLength();
+  }
+  stats = signal<any[]>([]);
+  private videoService = inject(Videos);
+  private storyService = inject(Sorties);
+  private taskService = inject(Tasks);
+  storyLength = signal<number>(0);
+  videosLength = signal<number>(0);
+  taskLength = signal<number>(0);
+  getLength() {
+    this.videoService.getAllVideos().subscribe((res: any) => {
+      this.videosLength.set(res.data.length);
+    });
+    this.storyService.getAllStories().subscribe((res: any) => {
+      this.storyLength.set(res.data.length);
+    });
+    this.taskService.getAllTasks().subscribe((res: any) => {
+      this.taskLength.set(res.data.length);
+    });
+  }
+
+  // stats = [
+  //   {
+  //     label: 'إجمالي القصص',
+  //     value: '1,284',
+  //     badge: '12%+ هذا الشهر',
+  //     badgeClass: 'bg-green-50 text-green-600',
+  //     badgeIcon: '↗',
+  //     valueClass: 'text-[#0058be]',
+  //     borderHover: 'hover:border-[#0058be]',
+  //     iconBg: 'bg-blue-50 group-hover:bg-[#0058be]',
+  //     iconColor: 'text-[#0058be]',
+  //     delay: 'animate-[fadeSlideUp_0.5s_0.1s_ease_both]',
+  //     icon: 'book',
+  //   },
+  //   {
+  //     label: 'إجمالي الفيديوهات',
+  //     value: '856',
+  //     badge: '5%+ هذا الأسبوع',
+  //     badgeClass: 'bg-green-50 text-green-600',
+  //     badgeIcon: '↗',
+  //     valueClass: 'text-[#6b38d4]',
+  //     borderHover: 'hover:border-[#6b38d4]',
+  //     iconBg: 'bg-purple-50 group-hover:bg-[#6b38d4]',
+  //     iconColor: 'text-[#6b38d4]',
+  //     delay: 'animate-[fadeSlideUp_0.5s_0.2s_ease_both]',
+  //     icon: 'video',
+  //   },
+  //   {
+  //     label: 'إجمالي المهام',
+  //     value: '3,412',
+  //     badge: 'معدل إنجاز عالي',
+  //     badgeClass: 'bg-blue-50 text-[#0058be]',
+  //     badgeIcon: '✔',
+  //     valueClass: 'text-[#4648d4]',
+  //     borderHover: 'hover:border-[#4648d4]',
+  //     iconBg: 'bg-indigo-50 group-hover:bg-[#4648d4]',
+  //     iconColor: 'text-[#4648d4]',
+  //     delay: 'animate-[fadeSlideUp_0.5s_0.3s_ease_both]',
+  //     icon: 'check',
+  //   },
+  // ];
 
   activities = [
     {

@@ -40,7 +40,7 @@
       >
         <div class="space-y-1">
           <p class="text-[13px] font-semibold text-[#424754]">إجمالي القصص</p>
-          <h2 class="text-[32px] font-bold text-[#0058be]">1,284</h2>
+          <h2 class="text-[32px] font-bold text-[#0058be]">{{ storyLength() }}</h2>
           <span
             class="inline-flex items-center gap-1 bg-green-50 text-green-600 px-3 py-1 rounded-full text-xs font-bold"
           >
@@ -72,7 +72,7 @@
       >
         <div class="space-y-1">
           <p class="text-[13px] font-semibold text-[#424754]">إجمالي الفيديوهات</p>
-          <h2 class="text-[32px] font-bold text-[#6b38d4]">856</h2>
+          <h2 class="text-[32px] font-bold text-[#6b38d4]">{{ videosLength() }}</h2>
           <span
             class="inline-flex items-center gap-1 bg-green-50 text-green-600 px-3 py-1 rounded-full text-xs font-bold"
           >
@@ -104,7 +104,7 @@
       >
         <div class="space-y-1">
           <p class="text-[13px] font-semibold text-[#424754]">إجمالي المهام</p>
-          <h2 class="text-[32px] font-bold text-[#4648d4]">3,412</h2>
+          <h2 class="text-[32px] font-bold text-[#4648d4]">{{ taskLength() }}</h2>
           <span
             class="inline-flex items-center gap-1 bg-blue-50 text-[#0058be] px-3 py-1 rounded-full text-xs font-bold"
           >
@@ -162,7 +162,7 @@
               <th class="p-5 font-bold text-sm">المحتوى</th>
               <th class="p-5 font-bold text-sm">النوع</th>
               <th class="p-5 font-bold text-sm">المكافأة (نجوم)</th>
-              <th class="p-5 font-bold text-sm">الحالة</th>
+              <!-- <th class="p-5 font-bold text-sm">الحالة</th> -->
               <th class="p-5 font-bold text-sm text-center">الإجراءات</th>
             </tr>
           </thead>
@@ -193,12 +193,12 @@
                     <span>{{ item.stars }}</span>
                   </div>
                 </td>
-                <td class="p-5">
+                <!-- <td class="p-5">
                   <span [class]="'flex items-center gap-2 text-sm font-bold ' + item.statusClass">
                     <span [class]="'w-2 h-2 rounded-full inline-block ' + item.dotClass"></span>
                     {{ item.status }}
                   </span>
-                </td>
+                </td> -->
                 <td class="p-5 text-center">
                   <button
                     class="p-2 text-[#424754] hover:text-[#0058be] transition-colors duration-200"
