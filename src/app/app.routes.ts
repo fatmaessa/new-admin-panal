@@ -1,32 +1,27 @@
 import { Routes } from '@angular/router';
-import { LogInPage } from './pages/log-in-page/log-in-page';
-import { HomePage } from './pages/home-page/home-page';
-import { VideoLibraryComponent } from './pages/videos/components/video-library/video-library';
-import { VideoDetailsComponent } from './pages/videos/components/video-details/video-details';
-import { AddVideo } from './pages/videos/components/add-video/add-video';
-import { TasksLibrary } from './pages/tasks/components/tasks-library/tasks-library';
 
 export const routes: Routes = [
-  { path: 'login', component: LogInPage },
-  { path: '', component: HomePage },
-  { path: 'videos/add', component: AddVideo }, // ← أول
-  { path: 'videos/edit/:id', component: AddVideo }, // ← تاني
-  { path: 'videos/:id', component: VideoDetailsComponent }, // ← تالت
-  { path: 'videos', component: VideoLibraryComponent },
-  { path: 'tasks', component: TasksLibrary },
   {
-    path: 'add-story',
-    loadComponent: () =>
-      import('./pages/stories/components/add-story/add-story').then((m) => m.AddStory),
+    path: '',
+    loadComponent: () => import('./pages/home-page/home-page').then((m) => m.HomePage),
   },
   {
-    path: 'edit-story/:id',
-    loadComponent: () =>
-      import('./pages/stories/components/add-story/add-story').then((m) => m.AddStory),
+    path: 'login',
+    loadComponent: () => import('./pages/log-in-page/log-in-page').then((m) => m.LogInPage),
+  },
+  {
+    path: 'tasks',
+    loadChildren: () => import('./pages/tasks/providers/tasks.routes').then((m) => m.tasksRoutes),
+  },
+  {
+    path: 'videos',
+    loadChildren: () =>
+      import('../app/pages/videos/providers/videos.routes').then((m) => m.videosRoutes),
   },
   {
     path: 'stories',
-    loadComponent: () =>
-      import('./pages/stories/components/stories/stories').then((m) => m.Stories),
+    loadChildren: () =>
+      import('../app/pages/stories/providers/stories.routes').then((m) => m.storiesRoutes),
   },
+  { path: '**', redirectTo: '' },
 ];

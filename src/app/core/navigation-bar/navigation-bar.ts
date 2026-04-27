@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
@@ -7,4 +7,13 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   templateUrl: './navigation-bar.html',
   styleUrl: './navigation-bar.scss',
 })
-export class NavigationBar {}
+export class NavigationBar {
+  isOpen = signal(false);
+
+  toggleMenu() {
+    this.isOpen.update((v) => !v);
+  }
+  closeMenu() {
+    this.isOpen.set(false);
+  }
+}
