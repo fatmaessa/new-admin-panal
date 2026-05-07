@@ -6,6 +6,11 @@ export const storiesRoutes: Routes = [
     loadComponent: () => import('../components/stories/stories').then((m) => m.Stories),
   },
   {
+    path: ':id',
+    loadComponent: () =>
+      import('../components/story-details/story-details').then((m) => m.StoryDetails),
+  },
+  {
     path: 'add',
     loadComponent: () => import('../components/add-story/add-story').then((m) => m.AddStory),
   },

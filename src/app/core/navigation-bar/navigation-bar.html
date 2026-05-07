@@ -83,5 +83,18 @@
         <p class="text-white font-bold">المهام</p>
       </a>
     </li>
+    <li
+      class="has-[.active]:bg-[#7aa8f5] has-[.active]:border-r-4 has-[.active]:border-white w-full rounded-lg pr-4 py-3"
+    >
+      <a
+        routerLink="/articles"
+        routerLinkActive="active"
+        (click)="closeMenu()"
+        class="flex flex-row items-center"
+      >
+        <i class="fa-regular fa-newspaper text-white text-xl ml-3"></i>
+        <p class="text-white font-bold">المقالات</p>
+      </a>
+    </li>
   </ul>
 </aside>

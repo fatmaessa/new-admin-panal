@@ -10,7 +10,7 @@ export const routes: Routes = [
   {
     path: 'login',
     loadComponent: () => import('./pages/log-in-page/log-in-page').then((m) => m.LogInPage),
-    canActivate: [guestGuard]
+    canActivate: [guestGuard],
   },
   {
     path: 'tasks',
@@ -28,6 +28,11 @@ export const routes: Routes = [
     loadChildren: () =>
       import('../app/pages/stories/providers/stories.routes').then((m) => m.storiesRoutes),
     canActivate: [authGuard],
+  },
+  {
+    path: 'articles',
+    loadChildren: () =>
+      import('../app/pages/articles/providers/articles.routes').then((m) => m.articlesRoutes),
   },
   { path: '**', redirectTo: 'login' },
 ];
