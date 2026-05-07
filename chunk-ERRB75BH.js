@@ -1,0 +1,1 @@
+var i=(t=>(t.Islamic="\u0625\u0633\u0644\u0627\u0645\u064A",t.Educational="\u062A\u0639\u0644\u064A\u0645\u064A",t.Entertainment="\u062A\u0631\u0641\u064A\u0647\u064A",t.Stories="\u0642\u0635\u0635",t))(i||{});export{i as a};
