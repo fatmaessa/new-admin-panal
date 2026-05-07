@@ -1,13 +1,28 @@
 <div class="flex flex-col group cursor-pointer" (click)="navigateToDetails()" dir="rtl">
   <!-- Thumbnail -->
   <div
-    class="relative aspect-video rounded-[20px] overflow-hidden mb-4 shadow-[0_8px_30px_rgba(59,130,246,0.1)]"
+    [class]="
+      'relative aspect-video rounded-[20px] overflow-hidden mb-4 border-4 bg-white shadow-[0_8px_30px_rgba(59,130,246,0.1)] ' +
+      getBorderClass()
+    "
   >
-    <div [class]="getPlaceholderClass()" class="w-full h-full flex items-center justify-center">
+    <!-- YouTube Thumbnail -->
+    <img
+      *ngIf="getYoutubeThumbnail()"
+      [src]="getYoutubeThumbnail()!"
+      class="absolute inset-0 w-full h-full object-cover"
+      alt="thumbnail"
+    />
+
+    <!-- Fallback لو مش يوتيوب -->
+    <div
+      *ngIf="!getYoutubeThumbnail()"
+      class="w-full h-full flex items-center justify-center bg-[#f7f9fb]"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
-        fill="rgba(255,255,255,0.4)"
+        fill="rgba(0,88,190,0.15)"
         class="w-16 h-16"
       >
         <path
@@ -35,15 +50,15 @@
 
     <!-- Hover Overlay -->
     <div
-      class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"
+      class="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"
     >
       <div
-        class="w-14 h-14 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border-2 border-white/50"
+        class="w-14 h-14 bg-white/80 backdrop-blur-md rounded-full flex items-center justify-center border-2 border-white shadow-md"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
-          fill="white"
+          fill="#0058be"
           class="w-8 h-8 ml-1"
         >
           <path d="M8 5v14l11-7z" />

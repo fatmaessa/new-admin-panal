@@ -1,11 +1,15 @@
 @if (showLayout()) {
   <app-header></app-header>
 }
-<div class="bg-gray-200 min-h-screen transition-all duration-300" [ngClass]="{'mr-[18%]':showLayout()}">
-    <main class="" [ngClass]="{'p-6':showLayout()}">
-        <router-outlet></router-outlet>
-    </main>
+<div
+  class="bg-gray-200 min-h-screen transition-all duration-300"
+  mt-5
+  [ngClass]="{ 'mr-[18%]': showLayout() }"
+>
+  <main class="mt-12" [ngClass]="{ 'p-6': showLayout() }">
+    <router-outlet></router-outlet>
+  </main>
 </div>
 @if (showLayout()) {
-<app-navigation-bar></app-navigation-bar>
+  <app-navigation-bar></app-navigation-bar>
 }

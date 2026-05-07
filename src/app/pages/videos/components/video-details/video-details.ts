@@ -2,7 +2,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Video } from '../../models/models';
+import { Video, VideoCategory } from '../../models/models';
 import { Videos } from '../../services/videos';
 import { ToastrService } from 'ngx-toastr';
 
@@ -28,7 +28,33 @@ export class VideoDetailsComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id')!;
     this.loadVideo(id);
   }
+  getYoutubeThumbnail(): string | null {
+    const url = this.video()?.url ?? '';
+    const match = url.match(
+      /(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/,
+    );
+    return match ? `https://img.youtube.com/vi/${match[1]}/hqdefault.jpg` : null;
+  }
+  getCategoryClass(category: string): string {
+    const base = 'px-3 py-1 rounded-full text-[10px] font-bold text-white ';
+    const colors: Record<string, string> = {
+      [VideoCategory.Islamic]: 'bg-indigo-500/90',
+      [VideoCategory.Educational]: 'bg-blue-500/90',
+      [VideoCategory.Entertainment]: 'bg-purple-500/90',
+      [VideoCategory.Stories]: 'bg-pink-500/90',
+    };
+    return base + (colors[category] ?? 'bg-blue-500/90');
+  }
 
+  getBorderClass(): string {
+    const borders: Record<string, string> = {
+      [VideoCategory.Islamic]: 'border-indigo-400',
+      [VideoCategory.Educational]: 'border-blue-400',
+      [VideoCategory.Entertainment]: 'border-purple-400',
+      [VideoCategory.Stories]: 'border-pink-400',
+    };
+    return borders[this.video()?.category ?? ''] ?? 'border-blue-400';
+  }
   loadVideo(id: string) {
     this.isLoading.set(true);
     this.videoService.getVideoById(id).subscribe({
@@ -70,17 +96,6 @@ export class VideoDetailsComponent implements OnInit {
 
   goBack() {
     this.router.navigate(['/videos']);
-  }
-
-  getCategoryClass(category: string): string {
-    const base = 'px-3 py-1 rounded-full text-[10px] font-bold text-white ';
-    const colors: Record<string, string> = {
-      إسلامي: 'bg-indigo-500/90',
-      تعليمي: 'bg-blue-500/90',
-      ترفيهي: 'bg-purple-500/90',
-      قصص: 'bg-pink-500/90',
-    };
-    return base + (colors[category] ?? 'bg-blue-500/90');
   }
 
   getPlaceholderClass(): string {

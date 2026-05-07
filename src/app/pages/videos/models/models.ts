@@ -10,12 +10,12 @@ export interface Video {
 export interface NewVideo {
   title: string;
   description: string;
-  category: string;
+  category: VideoCategory;
   url: string;
   pointsRewarded: number;
 }
 
-export enum VideoType {
+export enum VideoCategory {
   Islamic = 'إسلامي',
   Educational = 'تعليمي',
   Entertainment = 'ترفيهي',

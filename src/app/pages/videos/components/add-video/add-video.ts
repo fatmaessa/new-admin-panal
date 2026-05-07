@@ -2,7 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { NewVideo } from '../../models/models';
+import { NewVideo, VideoCategory } from '../../models/models';
 import { Videos } from '../../services/videos';
 import { CommonModule } from '@angular/common';
 
@@ -18,8 +18,9 @@ export class AddVideo implements OnInit {
   private toast = inject(ToastrService);
   private route = inject(ActivatedRoute);
   private videoService = inject(Videos);
+  categories = Object.values(VideoCategory);
 
-  categories = ['تعليمي', 'ترفيهي', 'إسلامي', 'قصص'];
+  // categories = ['تعليمي', 'ترفيهي', 'إسلامي', 'قصص'];
   form!: FormGroup;
   isEditMode = signal(false);
   isSubmitting = signal(false);
