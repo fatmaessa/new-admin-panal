@@ -2,7 +2,7 @@ import { HttpInterceptorFn, HttpErrorResponse, HttpRequest, HttpHandlerFn } from
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, switchMap, throwError, BehaviorSubject, filter, take } from 'rxjs';
-import { AuthService } from '../services/auth-service';
+import { AuthService } from '../auth/guards/auth-service';
 
 // Prevent multiple simultaneous refresh calls
 let isRefreshing = false;

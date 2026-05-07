@@ -1,11 +1,11 @@
 import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
-import { NavigationBar } from "./core/navigation-bar/navigation-bar";
-import { Header } from "./core/header/header";
 import { NgClass } from '@angular/common';
-import { AuthService } from './services/auth-service';
 import { filter } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Header } from './shared/components/header/header';
+import { NavigationBar } from './shared/components/navigation-bar/navigation-bar';
+import { AuthService } from './shared/services/auth/guards/auth-service';
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, NavigationBar, Header, NgClass],

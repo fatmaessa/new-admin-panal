@@ -2,7 +2,7 @@ import { Injectable, signal, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, tap, catchError, throwError } from 'rxjs';
-import { environment } from '../../environment.prod';
+import { environment } from '../../../../../environment';
 
 export interface LoginRequest {
   email: string;
@@ -49,7 +49,7 @@ export class AuthService {
       email:credentials.email,
       password:credentials.password
     }
-    return this.http.post<any>(`${this.API_URL}/auth/admin/login`, newRequest).pipe(
+    return this.http.post<any>(`${this.API_URL}auth/admin/login`, newRequest).pipe(
       tap((response) => {
         const newResponse = {
           success:response.success,

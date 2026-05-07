@@ -7,8 +7,8 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth-service';
 import { Observable } from 'rxjs';
+import { AuthService } from '../../shared/services/auth/guards/auth-service';
 
 @Component({
   selector: 'app-login',
