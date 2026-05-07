@@ -2,7 +2,7 @@ export interface Task {
   taskId: number;
   title: string;
   description: string;
-  category: string;
+  category: Category;
   difficulty: Difficulty;
   duration: string;
   videoUrl: string;
@@ -18,7 +18,12 @@ export interface CreateTask {
   videoUrl: string;
   pointsRewarded: number;
 }
-
+export enum Category {
+  Religious = 'مهام دينية',
+  Behavioral = 'مهام سلوكية',
+  Educational = 'مهام تعليمية',
+  Household = 'مهام منزلية',
+}
 export enum Difficulty {
   Easy = 'easy',
   Medium = 'medium',

@@ -4,7 +4,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { Tasks } from '../../services/tasks';
-import { CreateTask, Difficulty } from '../../models/models';
+import { Category, CreateTask, Difficulty } from '../../models/models';
 
 @Component({
   selector: 'app-add-task',
@@ -18,6 +18,7 @@ export class AddTask implements OnInit {
   private toast = inject(ToastrService);
   private route = inject(ActivatedRoute);
   private taskService = inject(Tasks);
+  categoryOptions = Object.values(Category);
 
   form!: FormGroup;
   isEditMode = signal(false);

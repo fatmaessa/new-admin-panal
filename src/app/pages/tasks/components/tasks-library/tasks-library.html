@@ -30,7 +30,7 @@
           [class.text-[#424754]]="selectedFilter() !== filter.key"
           class="px-5 py-2 rounded-xl font-bold text-sm shadow-sm border border-blue-50 hover:border-[#0058be] hover:text-[#0058be] transition-all duration-200"
         >
-          {{ filter.label }} ({{ filter.count }})
+          {{ filter.label }}
         </button>
       }
     </section>
@@ -47,7 +47,7 @@
           <div class="col-span-4 text-[#424754] font-bold text-sm">اسم المهمة</div>
           <div class="col-span-2 text-[#424754] font-bold text-sm">الفئة</div>
           <div class="col-span-2 text-[#424754] font-bold text-sm">المكافأة (نجوم)</div>
-          <div class="col-span-2 text-[#424754] font-bold text-sm">تاريخ الإضافة</div>
+          <!-- <div class="col-span-2 text-[#424754] font-bold text-sm">تاريخ الإضافة</div> -->
           <div class="col-span-2 text-[#424754] font-bold text-sm text-center">الإجراءات</div>
         </div>
 
@@ -91,9 +91,9 @@
               </div>
 
               <!-- Date -->
-              <div class="col-span-2 text-[#424754] text-sm">
+              <!-- <div class="col-span-2 text-[#424754] text-sm">
                 {{ formatDate(task.taskId) }}
-              </div>
+              </div> -->
 
               <!-- Actions -->
               <div class="col-span-2 flex justify-center gap-2">

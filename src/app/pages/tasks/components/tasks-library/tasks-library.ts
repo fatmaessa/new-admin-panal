@@ -1,6 +1,6 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Task } from '../../models/models';
+import { Category, Task } from '../../models/models';
 import { Tasks } from '../../services/tasks';
 import Swal from 'sweetalert2';
 
@@ -14,15 +14,16 @@ export class TasksLibrary implements OnInit {
   private taskService = inject(Tasks);
 
   allTasks = signal<Task[]>([]);
-  selectedFilter = signal<string>('all');
+  // selectedFilter = signal<string>('all');
+  selectedFilter = signal<Category | 'all'>('all');
 
   filters = [
-    { key: 'all', label: 'الكل', count: 0 },
-    { key: 'مهام منزلية', label: 'مهام منزلية', count: 0 },
-    { key: 'مهام دراسية', label: 'مهام دراسية', count: 0 },
-    { key: 'مهام سلوكية', label: 'مهام سلوكية', count: 0 },
+    { key: 'all' as const, label: 'الكل' },
+    { key: Category.Household, label: 'مهام منزلية' },
+    { key: Category.Behavioral, label: 'مهام سلوكية' },
+    { key: Category.Religious, label: 'مهام دينية' },
+    { key: Category.Educational, label: 'مهام تعليمية' },
   ];
-
   filteredTasks = computed(() => {
     const filter = this.selectedFilter();
     const tasks = this.allTasks();
@@ -37,19 +38,20 @@ export class TasksLibrary implements OnInit {
   loadTasks() {
     this.taskService.getAllTasks().subscribe((res: any) => {
       this.allTasks.set(res.data ?? res);
-      this.updateCounts();
+      // this.updateCounts();
     });
   }
 
-  updateCounts() {
-    const tasks = this.allTasks();
-    this.filters[0].count = tasks.length;
-    this.filters[1].count = tasks.filter((t) => t.category === 'ديني').length;
-    this.filters[2].count = tasks.filter((t) => t.category === 'مدرسي').length;
-    this.filters[3].count = tasks.filter((t) => t.category === 'منزلي').length;
-  }
+  // updateCounts() {
+  //   const tasks = this.allTasks();
+  //   this.filters[0].count = tasks.length;
+  //   this.filters[1].count = tasks.filter((t) => t.category === 'مهام دينية').length;
+  //   this.filters[2].count = tasks.filter((t) => t.category === 'مهام سلوكية').length;
+  //   this.filters[3].count = tasks.filter((t) => t.category === 'مهام منزلية').length;
+  //   this.filters[3].count = tasks.filter((t) => t.category === 'مهام تعليمية').length;
+  // }
 
-  setFilter(key: string) {
+  setFilter(key: Category | 'all') {
     this.selectedFilter.set(key);
   }
 
@@ -68,7 +70,7 @@ export class TasksLibrary implements OnInit {
       if (result.isConfirmed) {
         this.taskService.deleteTask(id).subscribe();
         this.allTasks.update((tasks) => tasks.filter((t) => t.taskId !== id));
-        this.updateCounts();
+        // this.updateCounts();
         Swal.fire({
           title: 'تم الحذف!',
           text: 'تم حذف المهمة بنجاح.',
@@ -87,24 +89,29 @@ export class TasksLibrary implements OnInit {
   }
 
   getCategoryIcon(category: string): string {
-    const icons: Record<string, string> = { ديني: '🕌', منزلي: '🏠', مدرسي: '🎒' };
-    return icons[category] ?? '📋';
+    const icons: Record<Category, string> = {
+      [Category.Religious]: '🕌',
+      [Category.Household]: '🏠',
+      [Category.Behavioral]: '🤝',
+      [Category.Educational]: '🎓',
+    };
+    return icons[category as Category] ?? '📋';
   }
-
-  getCategoryIconBg(category: string): string {
-    const bgs: Record<string, string> = {
-      ديني: 'bg-green-50',
-      منزلي: 'bg-orange-50',
-      مدرسي: 'bg-blue-50',
+  getCategoryIconBg(category: Category): string {
+    const bgs: Record<Category, string> = {
+      [Category.Religious]: 'bg-green-50',
+      [Category.Household]: 'bg-orange-50',
+      [Category.Educational]: 'bg-blue-50',
+      [Category.Behavioral]: 'bg-purple-50',
     };
     return bgs[category] ?? 'bg-gray-50';
   }
-
-  getCategoryBadge(category: string): string {
-    const badges: Record<string, string> = {
-      ديني: 'bg-green-100 text-green-700',
-      منزلي: 'bg-orange-100 text-orange-700',
-      مدرسي: 'bg-blue-100 text-[#0058be]',
+  getCategoryBadge(category: Category): string {
+    const badges: Record<Category, string> = {
+      [Category.Religious]: 'bg-green-100 text-green-700',
+      [Category.Household]: 'bg-orange-100 text-orange-700',
+      [Category.Educational]: 'bg-blue-100 text-[#0058be]',
+      [Category.Behavioral]: 'bg-purple-100 text-purple-700',
     };
     return badges[category] ?? 'bg-gray-100 text-gray-600';
   }
