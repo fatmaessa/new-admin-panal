@@ -1,35 +1,50 @@
-<div class="min-h-screen bg-[#f7f9fb] p-5 md:p-8 lg:p-12" dir="rtl">
+<!-- videos.component.html -->
+<div
+  class="min-h-screen bg-[#f7f9fb] p-5 md:p-8 lg:p-12 pt-24 md:pt-28"
+  dir="rtl"
+>
   <main class="max-w-5xl mx-auto space-y-8">
     <!-- Header -->
-    <header
-      class="flex flex-col md:flex-row md:items-center justify-between gap-6 animate-[fadeSlideDown_0.5s_ease_both]"
-    >
-      <div>
-        <h1 class="text-[32px] font-bold leading-[1.4] text-[#0058be] mb-1">مكتبة الفيديوهات</h1>
-        <p class="text-[18px] font-medium leading-[1.6] text-[#424754]">
-          استعرض وأدر جميع الفيديوهات المتاحة
-        </p>
+    <header class="flex flex-col gap-4 animate-[fadeSlideDown_0.5s_ease_both]">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div>
+          <h1 class="text-[32px] font-bold leading-[1.4] text-[#0058be] mb-1">
+            مكتبة الفيديوهات
+          </h1>
+          <p class="text-[18px] font-medium leading-[1.6] text-[#424754]">
+            استعرض وأدر جميع الفيديوهات المتاحة
+          </p>
+        </div>
+
+        <button
+          (click)="goToAdd()"
+          class="flex items-center gap-2 px-8 py-3 rounded-xl text-white font-bold text-base bg-gradient-to-l from-[#7C3AED] to-[#A78BFA] shadow-[0_4px_12px_rgba(124,58,237,0.3)] hover:scale-105 active:scale-95 transition-transform duration-200 self-start md:self-auto"
+        >
+          ➕ إضافة فيديو
+        </button>
       </div>
-      <button
-        (click)="goToAdd()"
-        class="flex items-center gap-2 px-8 py-3 rounded-xl text-white font-bold text-base bg-gradient-to-l from-[#7C3AED] to-[#A78BFA] shadow-[0_4px_12px_rgba(124,58,237,0.3)] hover:scale-105 active:scale-95 transition-transform duration-200 self-start md:self-auto"
-      >
-        ➕ إضافة فيديو
-      </button>
+
+      <!-- Category Filter -->
+      <app-category-filter
+        (categoryChanged)="onCategoryChange($event)"
+      ></app-category-filter>
     </header>
 
-    <!-- Category Filter -->
-    <section class="animate-[fadeSlideUp_0.5s_0.1s_ease_both]">
-      <app-category-filter (categoryChanged)="onCategoryChange($event)" />
-    </section>
-
     <!-- Featured Video -->
-    <section *ngIf="featuredVideo()" class="animate-[fadeSlideUp_0.5s_0.2s_ease_both]">
-      <app-featured-video [video]="featuredVideo()!" />
+    <section
+      *ngIf="featuredVideo()"
+      class="animate-[fadeSlideUp_0.5s_0.2s_ease_both]"
+    >
+      <app-featured-video
+        [video]="featuredVideo()!"
+      ></app-featured-video>
     </section>
 
     <!-- Loading -->
-    <div *ngIf="isLoading()" class="flex justify-center items-center min-h-[300px]">
+    <div
+      *ngIf="isLoading()"
+      class="flex justify-center items-center min-h-[300px]"
+    >
       <div
         class="w-12 h-12 rounded-full border-4 border-[#0058be] border-t-transparent animate-spin"
       ></div>
@@ -40,7 +55,10 @@
       *ngIf="!isLoading()"
       class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-[fadeSlideUp_0.5s_0.3s_ease_both]"
     >
-      <app-video-card *ngFor="let video of filteredVideos()" [video]="video" />
+      <app-video-card
+        *ngFor="let video of filteredVideos()"
+        [video]="video"
+      ></app-video-card>
     </section>
 
     <!-- Empty State -->
@@ -61,7 +79,7 @@
           <path
             stroke-linecap="round"
             stroke-linejoin="round"
-            d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M12 18.75H4.5a2.25 2.25 0 01-2.25-2.25V9m12.841 9.091L16.5 19.5m-1.409-1.409c.407-.713.633-1.527.633-2.397A6.75 6.75 0 006.436 9.44c-.87 0-1.684.226-2.397.632m13.792 7.319"
+            d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M12 18.75H4.5a2.25 2.25 0 01-2.25-2.25V9"
           />
         </svg>
       </div>
