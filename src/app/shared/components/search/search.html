@@ -1,0 +1,96 @@
+<div class="search-wrapper" dir="rtl">
+
+  <!-- Filter Tabs — بتظهر بس لما مفيش lockedType -->
+  <div class="filter-bar" *ngIf="!lockedType">
+    <button
+      *ngFor="let f of filters"
+      class="filter-btn"
+      [class.active]="activeType === f.value"
+      (click)="onFilterChange(f.value)"
+      type="button"
+    >
+      <span>{{ f.icon }}</span>
+      <span>{{ f.label }}</span>
+    </button>
+  </div>
+
+  <!-- Input -->
+  <div class="input-wrap">
+    <svg class="ico-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+    </svg>
+
+    <input
+      #searchInput
+      [formControl]="searchControl"
+      type="text"
+      class="search-input"
+     [placeholder]="currentPlaceholder"
+      autocomplete="off"
+      (focus)="showPanel = results.length > 0 || !!searchControl.value"
+    />
+
+    <!-- spinner -->
+    <svg *ngIf="isLoading" class="spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <path d="M21 12a9 9 0 1 1-6.22-8.56"/>
+    </svg>
+
+    <!-- clear -->
+    <button *ngIf="searchControl.value && !isLoading" class="btn-clear" (click)="clear()" type="button" aria-label="مسح">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+
+  <!-- Results panel -->
+  <div class="results-panel" *ngIf="showPanel">
+
+    <!-- header -->
+    <div class="panel-header" *ngIf="results.length">
+      <span class="panel-title">نتائج البحث</span>
+      <span class="badge-count">{{ total }} نتيجة</span>
+    </div>
+
+    <!-- list -->
+    <ul class="results-list" *ngIf="results.length">
+      <li *ngFor="let item of results" class="result-row" (click)="onSelect(item)">
+
+        <span class="type-badge type-{{ item.type }}" *ngIf="!lockedType">
+{{ getTypeIcon(item.type) }} {{ getTypeLabel(item.type) }}
+        </span>
+
+        <div class="row-body">
+          <span class="row-title">{{ item.title }}</span>
+          <span class="row-meta" *ngIf="item.category">{{ item.category }}</span>
+        </div>
+
+        <span class="row-points" *ngIf="item.points">⭐ {{ item.points }}</span>
+
+        <svg class="ico-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M15 18l-6-6 6-6"/>
+        </svg>
+      </li>
+    </ul>
+
+    <!-- empty -->
+    <div class="empty-state" *ngIf="!isLoading && !results.length && searchControl.value">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <p>لا توجد نتائج لـ "{{ searchControl.value }}"</p>
+      <small *ngIf="!lockedType">جرب كلمة مختلفة أو غيّر الفلتر</small>
+      <small *ngIf="lockedType">جرب كلمة مختلفة</small>
+    </div>
+
+    <!-- loading placeholder -->
+    <div class="loading-rows" *ngIf="isLoading">
+      <div class="skeleton-row" *ngFor="let i of [1,2,3]">
+        <div class="sk sk-badge"></div>
+        <div class="sk-lines">
+          <div class="sk sk-title"></div>
+          <div class="sk sk-meta"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
