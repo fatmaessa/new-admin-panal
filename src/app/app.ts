@@ -5,7 +5,7 @@ import { filter } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Header } from './shared/components/header/header';
 import { NavigationBar } from './shared/components/navigation-bar/navigation-bar';
-import { AuthService } from './shared/services/auth-service';
+import { AuthService } from './shared/services/auth/auth-service';
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, NavigationBar, Header, NgClass],
