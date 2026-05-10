@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { AuthService } from '../../services/auth/guards/auth-service';
+import { AuthService } from '../../services/auth-service';
 
 @Component({
   selector: 'app-header',
@@ -10,7 +10,7 @@ import { AuthService } from '../../services/auth/guards/auth-service';
 export class Header {
   authService = inject(AuthService);
 
-  logout(){
+  logout() {
     this.authService.logout();
   }
 }

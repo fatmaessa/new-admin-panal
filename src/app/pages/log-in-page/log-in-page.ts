@@ -1,14 +1,9 @@
 import { Component, signal, computed, inject } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  ReactiveFormsModule
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthService } from '../../shared/services/auth/guards/auth-service';
+import { AuthService } from '../../shared/services/auth-service';
 
 @Component({
   selector: 'app-login',
@@ -28,7 +23,10 @@ export class LogInPage {
 
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+  ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -37,20 +35,20 @@ export class LogInPage {
   }
 
   // Helpers to access controls cleanly
-  get email() { return this.loginForm.get('email'); }
-  get password() { return this.loginForm.get('password'); }
+  get email() {
+    return this.loginForm.get('email');
+  }
+  get password() {
+    return this.loginForm.get('password');
+  }
 
   // Computed: show field error only after submit or field touched
-  showEmailError = computed(() =>
-    this.submitted() && !!this.email?.invalid
-  );
+  showEmailError = computed(() => this.submitted() && !!this.email?.invalid);
 
-  showPasswordError = computed(() =>
-    this.submitted() && !!this.password?.invalid
-  );
+  showPasswordError = computed(() => this.submitted() && !!this.password?.invalid);
 
   togglePasswordVisibility() {
-    this.showPassword.update(v => !v);
+    this.showPassword.update((v) => !v);
   }
 
   async onSubmit() {
@@ -61,31 +59,26 @@ export class LogInPage {
 
     this.isLoading.set(true);
 
-     this.fakeAuthCall(
-        this.email?.value,
-        this.password?.value
-      ).subscribe({
-        next:(res) => {
-          console.log(res);
+    this.fakeAuthCall(this.email?.value, this.password?.value).subscribe({
+      next: (res) => {
+        console.log(res);
 
-          this.router.navigate(['']);
-          this.isLoading.set(false);
-        },
-        error:(err) => {
-          this.isLoading.set(false);
-          this.loginError.set('البريد الإلكتروني أو كلمة المرور غير صحيحة');
-          setTimeout(() => {
-            this.loginError.set('')
-          }, 3000);
-        }
-      })
-
-
+        this.router.navigate(['']);
+        this.isLoading.set(false);
+      },
+      error: (err) => {
+        this.isLoading.set(false);
+        this.loginError.set('البريد الإلكتروني أو كلمة المرور غير صحيحة');
+        setTimeout(() => {
+          this.loginError.set('');
+        }, 3000);
+      },
+    });
   }
 
   // Remove this and replace with your AuthService
   private fakeAuthCall(email: string, password: string) {
-    const obj = {email,password};
+    const obj = { email, password };
     return this.loginService.login(obj);
   }
 }

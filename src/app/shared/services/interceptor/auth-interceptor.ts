@@ -1,8 +1,13 @@
-import { HttpInterceptorFn, HttpErrorResponse, HttpRequest, HttpHandlerFn } from '@angular/common/http';
+import {
+  HttpInterceptorFn,
+  HttpErrorResponse,
+  HttpRequest,
+  HttpHandlerFn,
+} from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, switchMap, throwError, BehaviorSubject, filter, take } from 'rxjs';
-import { AuthService } from '../auth/guards/auth-service';
+import { AuthService } from '../auth-service';
 
 // Prevent multiple simultaneous refresh calls
 let isRefreshing = false;
@@ -29,7 +34,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
         router.navigate(['/unauthorized']);
       }
       return throwError(() => error);
-    })
+    }),
   );
 };
 
@@ -45,7 +50,7 @@ function handle401Error(
   req: HttpRequest<unknown>,
   next: HttpHandlerFn,
   auth: AuthService,
-  router: Router
+  router: Router,
 ) {
   if (!auth.getRefreshToken()) {
     auth.logout();
@@ -66,7 +71,7 @@ function handle401Error(
         isRefreshing = false;
         auth.logout();
         return throwError(() => err);
-      })
+      }),
     );
   }
 
@@ -74,7 +79,7 @@ function handle401Error(
   return refreshTokenSubject.pipe(
     filter((token) => token !== null),
     take(1),
-    switchMap((token) => next(addTokenHeader(req, token!)))
+    switchMap((token) => next(addTokenHeader(req, token!))),
   );
 }
 
