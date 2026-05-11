@@ -1,6 +1,6 @@
 import { Component, inject, output } from '@angular/core';
-import { AuthService } from '../../services/auth/guards/auth-service';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../services/auth/auth-service';
 
 @Component({
   selector: 'app-header',
@@ -9,6 +9,8 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './header.scss',
 })
 export class Header {
+  $result: any;
+
   authService = inject(AuthService);
 
   searchQuery = output<string>();

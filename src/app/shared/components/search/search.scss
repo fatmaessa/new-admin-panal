@@ -1,0 +1,224 @@
+// ── Tokens ─────────────────────────────────────────
+$primary   : #7c5cbf;
+$pri-light : #ede8f8;
+$pri-hover : #6a4aaa;
+$surface   : #ffffff;
+$surface-2 : #f9f8fc;
+$border    : #e3dff0;
+$txt-1     : #1e1a2e;
+$txt-2     : #6b637e;
+$txt-3     : #a39bb8;
+$radius    : 12px;
+$shadow    : 0 4px 20px rgba(124,92,191,.12);
+
+// type colours: (bg, text)
+$types: (
+  story  : (#fff4e0, #9a5c00),
+  video  : (#e3eeff, #1a4fa0),
+  task   : (#e5f7ee, #1a6e42),
+  article: (#fce8f1, #8c1850),
+);
+
+// ── Wrapper ─────────────────────────────────────────
+.search-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 680px;
+  font-family: 'Tajawal', 'Cairo', 'Segoe UI', sans-serif;
+}
+
+// ── Filter bar ──────────────────────────────────────
+.filter-bar {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.filter-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 15px;
+  border: 1.5px solid $border;
+  border-radius: 20px;
+  background: $surface;
+  color: $txt-2;
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all .2s;
+  white-space: nowrap;
+
+  &:hover { border-color: $primary; color: $primary; background: $pri-light; }
+  &.active { background: $primary; border-color: $primary; color: #fff; font-weight: 700; box-shadow: 0 2px 8px rgba(124,92,191,.25); }
+}
+
+// ── Input ────────────────────────────────────────────
+.input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 14px;
+  background: $surface;
+  border: 2px solid $border;
+  border-radius: $radius;
+  box-shadow: $shadow;
+  transition: border-color .2s, box-shadow .2s;
+
+  &:focus-within {
+    border-color: $primary;
+    box-shadow: 0 0 0 4px rgba(124,92,191,.13);
+  }
+}
+
+.ico-search {
+  width: 18px; height: 18px;
+  color: $txt-3; flex-shrink: 0;
+}
+
+.search-input {
+  flex: 1;
+  border: none; outline: none;
+  background: transparent;
+  padding: 14px 0;
+  font-size: 15px;
+  color: $txt-1;
+  font-family: inherit;
+  text-align: right;
+  direction: rtl;
+
+  &::placeholder { color: $txt-3; font-size: 14px; }
+}
+
+// spinner
+.spinner {
+  width: 18px; height: 18px; flex-shrink: 0;
+  color: $primary;
+  animation: spin .75s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+// clear
+.btn-clear {
+  display: flex; align-items: center; justify-content: center;
+  width: 24px; height: 24px;
+  border-radius: 50%; border: none;
+  background: $border; color: $txt-2;
+  cursor: pointer; flex-shrink: 0;
+  transition: all .15s;
+  svg { width: 12px; height: 12px; }
+  &:hover { background: $primary; color: #fff; }
+}
+
+// ── Results panel ─────────────────────────────────────
+.results-panel {
+  position: absolute;
+  top: calc(100% + 8px); left: 0; right: 0;
+  background: $surface;
+  border: 1.5px solid $border;
+  border-radius: $radius;
+  box-shadow: $shadow;
+  z-index: 1000;
+  overflow: hidden;
+  animation: slideIn .18s ease;
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.panel-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 16px;
+  background: $surface-2;
+  border-bottom: 1px solid $border;
+}
+.panel-title { font-size: 12px; color: $txt-2; font-weight: 700; }
+.badge-count {
+  background: $primary; color: #fff;
+  padding: 2px 9px; border-radius: 10px; font-size: 11px; font-weight: 700;
+}
+
+// ── Result rows ───────────────────────────────────────
+.results-list {
+  list-style: none; margin: 0; padding: 6px;
+  max-height: 360px; overflow-y: auto;
+
+  &::-webkit-scrollbar { width: 4px; }
+  &::-webkit-scrollbar-thumb { background: $border; border-radius: 4px; }
+}
+
+.result-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background .15s;
+
+  &:hover {
+    background: $surface-2;
+    .ico-arrow { opacity: 1; transform: translateX(-3px); }
+  }
+}
+
+// type badges
+.type-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px; font-weight: 700;
+  white-space: nowrap; flex-shrink: 0;
+
+  @each $type, $colors in $types {
+    &.type-#{$type} { background: nth($colors,1); color: nth($colors,2); }
+  }
+}
+
+.row-body {
+  flex: 1; min-width: 0;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.row-title {
+  font-size: 14px; font-weight: 600; color: $txt-1;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.row-meta {
+  font-size: 12px; color: $txt-2;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.row-points {
+  font-size: 12px; color: $txt-2; white-space: nowrap; flex-shrink: 0;
+}
+
+.ico-arrow {
+  width: 15px; height: 15px;
+  color: $primary; opacity: 0; flex-shrink: 0;
+  transition: all .15s;
+}
+
+// ── Empty state ───────────────────────────────────────
+.empty-state {
+  padding: 28px 20px; text-align: center;
+  svg { width: 32px; height: 32px; color: $txt-3; margin: 0 auto 10px; display: block; }
+  p    { margin: 0 0 4px; font-size: 14px; color: $txt-1; font-weight: 600; }
+  small { color: $txt-3; font-size: 12px; }
+}
+
+// ── Loading skeletons ─────────────────────────────────
+.loading-rows { padding: 8px 10px; display: flex; flex-direction: column; gap: 10px; }
+.skeleton-row { display: flex; align-items: center; gap: 10px; }
+.sk-lines { flex: 1; display: flex; flex-direction: column; gap: 5px; }
+
+.sk {
+  background: linear-gradient(90deg, #ede8f8 25%, #f7f5fc 50%, #ede8f8 75%);
+  background-size: 200% 100%;
+  border-radius: 6px;
+  animation: shimmer 1.2s infinite;
+}
+@keyframes shimmer { to { background-position: -200% 0; } }
+
+.sk-badge  { width: 64px; height: 28px; flex-shrink: 0; }
+.sk-title  { height: 14px; width: 65%; }
+.sk-meta   { height: 11px; width: 40%; }
