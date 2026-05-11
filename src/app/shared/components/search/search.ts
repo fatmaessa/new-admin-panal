@@ -1,7 +1,13 @@
 import {
-  Component, OnInit, OnDestroy,
-  Input, Output, EventEmitter,
-  HostListener, ElementRef, ViewChild,
+  Component,
+  OnInit,
+  OnDestroy,
+  Input,
+  Output,
+  EventEmitter,
+  HostListener,
+  ElementRef,
+  ViewChild,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -10,12 +16,13 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { SearchService } from '../../services/search/search_services';
 import { SearchResult, ContentType } from '../../models/search_models';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.html',
   styleUrls: ['./search.scss'],
-  imports:[ReactiveFormsModule]
+  imports: [ReactiveFormsModule, CommonModule],
 })
 export class SearchComponent implements OnInit, OnDestroy {
   @ViewChild('searchInput') searchInputRef!: ElementRef;
@@ -29,47 +36,56 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   @Output() resultSelected = new EventEmitter<SearchResult>();
   get currentPlaceholder(): string {
-  if (this.lockedType) {
-    return 'ابحث في ' + this.typeLabel[this.lockedType] + '...';
+    if (this.lockedType) {
+      return 'ابحث في ' + this.typeLabel[this.lockedType] + '...';
+    }
+    return 'ابحث في القصص، الفيديوهات، المهام، المقالات...';
   }
-  return 'ابحث في القصص، الفيديوهات، المهام، المقالات...';
-}
 
-getTypeIcon(type: string): string {
-  return this.typeIcon[type as ContentType] ?? '';
-}
+  getTypeIcon(type: string): string {
+    return this.typeIcon[type as ContentType] ?? '';
+  }
 
-getTypeLabel(type: string): string {
-  return this.typeLabel[type as ContentType] ?? '';
-}
+  getTypeLabel(type: string): string {
+    return this.typeLabel[type as ContentType] ?? '';
+  }
 
   searchControl = new FormControl('');
   activeType: ContentType | 'all' = 'all';
 
-  results:      SearchResult[] = [];
-  isLoading  = false;
-  total      = 0;
-  showPanel  = false;
+  results: SearchResult[] = [];
+  isLoading = false;
+  total = 0;
+  showPanel = false;
 
   readonly filters: { value: ContentType | 'all'; label: string; icon: string }[] = [
-    { value: 'all',     label: 'الكل',       icon: '🔍' },
-    { value: 'story',   label: 'قصص',        icon: '📖' },
-    { value: 'video',   label: 'فيديوهات',   icon: '🎬' },
-    { value: 'task',    label: 'مهام',        icon: '✅' },
-    { value: 'article', label: 'مقالات',      icon: '📝' },
+    { value: 'all', label: 'الكل', icon: '🔍' },
+    { value: 'story', label: 'قصص', icon: '📖' },
+    { value: 'video', label: 'فيديوهات', icon: '🎬' },
+    { value: 'task', label: 'مهام', icon: '✅' },
+    { value: 'article', label: 'مقالات', icon: '📝' },
   ];
 
   readonly typeLabel: Record<ContentType, string> = {
-    story: 'قصة', video: 'فيديو', task: 'مهمة', article: 'مقال',
+    story: 'قصة',
+    video: 'فيديو',
+    task: 'مهمة',
+    article: 'مقال',
   };
 
   readonly typeIcon: Record<ContentType, string> = {
-    story: '📖', video: '🎬', task: '✅', article: '📝',
+    story: '📖',
+    video: '🎬',
+    task: '✅',
+    article: '📝',
   };
 
   private destroy$ = new Subject<void>();
 
-  constructor(private searchSvc: SearchService, private elRef: ElementRef) {}
+  constructor(
+    private searchSvc: SearchService,
+    private elRef: ElementRef,
+  ) {}
 
   ngOnInit() {
     // لو في lockedType، اقفل الفلتر عليه من الأول
@@ -77,15 +93,19 @@ getTypeLabel(type: string): string {
       this.activeType = this.lockedType;
     }
 
-    this.searchSvc.results$.pipe(takeUntil(this.destroy$)).subscribe(r => {
-      this.results   = r;
+    this.searchSvc.results$.pipe(takeUntil(this.destroy$)).subscribe((r) => {
+      this.results = r;
       this.showPanel = r.length > 0 || (!!this.searchControl.value && !this.isLoading);
     });
-    this.searchSvc.isLoading$.pipe(takeUntil(this.destroy$)).subscribe(v => this.isLoading = v);
-    this.searchSvc.total$.pipe(takeUntil(this.destroy$)).subscribe(v => this.total = v);
+    this.searchSvc.isLoading$.pipe(takeUntil(this.destroy$)).subscribe((v) => (this.isLoading = v));
+    this.searchSvc.total$.pipe(takeUntil(this.destroy$)).subscribe((v) => (this.total = v));
 
-    this.searchControl.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(q => {
-      if (!q) { this.searchSvc.clear(); this.showPanel = false; return; }
+    this.searchControl.valueChanges.pipe(takeUntil(this.destroy$)).subscribe((q) => {
+      if (!q) {
+        this.searchSvc.clear();
+        this.showPanel = false;
+        return;
+      }
       this.showPanel = true;
       this.searchSvc.search(q, this.activeType);
     });
@@ -114,7 +134,12 @@ getTypeLabel(type: string): string {
   }
 
   @HostListener('keydown.escape')
-  onEsc() { this.clear(); }
+  onEsc() {
+    this.clear();
+  }
 
-  ngOnDestroy() { this.destroy$.next(); this.destroy$.complete(); }
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 }
