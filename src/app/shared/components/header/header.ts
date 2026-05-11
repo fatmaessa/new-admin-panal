@@ -1,19 +1,23 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, output } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth/auth-service';
-import { SearchComponent } from "../search/search";
-import { SearchResult } from '../../models/search_models';
-
 
 @Component({
   selector: 'app-header',
-  imports: [SearchComponent],
+  imports: [FormsModule],
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })
 export class Header {
-$result: any;
+  $result: any;
 
   authService = inject(AuthService);
+
+  searchQuery = output<string>();
+
+  onSearch(value: string) {
+    this.searchQuery.emit(value);
+  }
 
   logout() {
     this.authService.logout();
