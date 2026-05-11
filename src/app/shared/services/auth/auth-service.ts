@@ -2,7 +2,7 @@ import { Injectable, signal, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, tap, catchError, throwError } from 'rxjs';
-import { environment } from '../../../../../environment';
+import { environment } from '../../../../environment';
 
 export interface LoginRequest {
   email: string;
@@ -11,15 +11,14 @@ export interface LoginRequest {
 }
 
 export interface LoginResponse {
-  success:boolean;
-  message:string;
+  success: boolean;
+  message: string;
   token: string;
-  user:{
-    role:string;
-    fullName:string;
-  }
+  user: {
+    role: string;
+    fullName: string;
+  };
 }
-
 
 @Injectable({
   providedIn: 'root',
@@ -39,27 +38,30 @@ export class AuthService {
   isAuthenticated = computed(() => !!this.currentUser() && !!this.getToken());
   userRole = computed(() => this.currentUser()?.role ?? null);
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+  ) {}
 
   // ── Login ─────────────────────────────────────────────────
   login(credentials: LoginRequest): Observable<LoginResponse> {
     this.isLoading.set(true);
     this.authError.set(null);
     const newRequest = {
-      email:credentials.email,
-      password:credentials.password
-    }
+      email: credentials.email,
+      password: credentials.password,
+    };
     return this.http.post<any>(`${this.API_URL}auth/admin/login`, newRequest).pipe(
       tap((response) => {
         const newResponse = {
-          success:response.success,
-          message:response.message,
+          success: response.success,
+          message: response.message,
           token: response.token,
-          user:{
-            role:response.role,
-            fullName:response.fullName
-          }
-        }
+          user: {
+            role: response.role,
+            fullName: response.fullName,
+          },
+        };
         this.handleAuthSuccess(newResponse, credentials.rememberMe ?? false);
         this.isLoading.set(false);
       }),
@@ -68,7 +70,7 @@ export class AuthService {
         this.authError.set(message);
         this.isLoading.set(false);
         return throwError(() => error);
-      })
+      }),
     );
   }
 
@@ -85,10 +87,7 @@ export class AuthService {
 
   // ── Token Helpers ─────────────────────────────────────────
   getToken(): string | null {
-    return (
-      localStorage.getItem(this.TOKEN_KEY) ||
-      sessionStorage.getItem(this.TOKEN_KEY)
-    );
+    return localStorage.getItem(this.TOKEN_KEY) || sessionStorage.getItem(this.TOKEN_KEY);
   }
 
   getRefreshToken(): string | null {
@@ -103,7 +102,7 @@ export class AuthService {
       .pipe(
         tap((res) => {
           localStorage.setItem(this.TOKEN_KEY, res.token);
-        })
+        }),
       );
   }
 

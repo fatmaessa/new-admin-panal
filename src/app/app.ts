@@ -5,12 +5,12 @@ import { filter } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Header } from './shared/components/header/header';
 import { NavigationBar } from './shared/components/navigation-bar/navigation-bar';
-import { AuthService } from './shared/services/auth/guards/auth-service';
+import { AuthService } from './shared/services/auth/auth-service';
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, NavigationBar, Header, NgClass],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  styleUrl: './app.scss',
 })
 export class App implements OnInit {
   protected readonly title = signal('new-admin-panal');
@@ -24,24 +24,23 @@ export class App implements OnInit {
   private token = signal(this.loginService.getToken());
 
   // Computed: hide layout on /login OR when not authenticated
-  showLayout = computed(() =>
-    this.currentUrl() !== '/login' && !!this.token()
-  );
+  showLayout = computed(() => this.currentUrl() !== '/login' && !!this.token());
 
   ngOnInit(): void {
     // Update currentUrl signal on every navigation
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd),
-      takeUntilDestroyed(this.destroyRef)
-    ).subscribe((event: NavigationEnd) => {
-      this.currentUrl.set(event.urlAfterRedirects);
-      this.token.set(this.loginService.getToken()); // re-check token after navigation
-    });
+    this.router.events
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe((event: NavigationEnd) => {
+        this.currentUrl.set(event.urlAfterRedirects);
+        this.token.set(this.loginService.getToken()); // re-check token after navigation
+      });
 
     // Redirect to login if no token
     if (!this.token()) {
       this.router.navigate(['/login']);
     }
   }
-
 }
