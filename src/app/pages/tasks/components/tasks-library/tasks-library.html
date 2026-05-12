@@ -11,13 +11,13 @@
       </div>
 
       <button routerLink="/tasks/add"
-        class="flex items-center gap-2 px-8 py-3 rounded-xl text-white font-bold text-base bg-gradient-to-l from-[#3B82F6] to-[#60A5FA] shadow-[0_4px_12px_rgba(59,130,246,0.3)] hover:scale-105 active:scale-95 transition-transform duration-200 self-start">
+        class="flex items-center gap-2 px-8 py-3 rounded-xl text-white font-bold text-base bg-gradient-to-l from-[#3B82F6] to-[#60A5FA] shadow-[0_4px_12px_rgba(59,130,246,0.3)] hover:scale-105 active:scale-95 transition-transform duration-200 self-start md:self-auto">
         ➕ إضافة مهمة جديدة
       </button>
     </header>
 
     <!-- Filters -->
-    <section class="flex flex-wrap gap-3 justify-end animate-[fadeSlideUp_0.5s_0.1s_ease_both]">
+    <section class="flex flex-wrap gap-3 justify-start animate-[fadeSlideUp_0.5s_0.1s_ease_both]" >
       @for (filter of filters; track filter.key) {
       <button (click)="setFilter(filter.key)" [class.bg-[#0058be]]="selectedFilter() === filter.key"
         [class.text-white]="selectedFilter() === filter.key" [class.hover:text-white]="selectedFilter() === filter.key"
@@ -27,6 +27,8 @@
       </button>
       }
     </section>
+    <app-search [lockedType]="'task'" (resultSelected)="onResultSelected($event)"></app-search>
+
 
     <!-- Table -->
     <section class="animate-[fadeSlideUp_0.5s_0.2s_ease_both]">

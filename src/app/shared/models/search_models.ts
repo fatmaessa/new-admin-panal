@@ -9,6 +9,12 @@ export interface StoryItem {
   url?: string;
   pointsRewarded: number;
 }
+export const routeMap: Record<string, string> = {
+  story: 'stories',
+  video: 'videos',
+  task: 'tasks',
+  article: 'articles',
+};
 
 export interface TaskItem {
   taskId: number;

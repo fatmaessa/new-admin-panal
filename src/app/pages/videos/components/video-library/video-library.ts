@@ -7,17 +7,24 @@ import { VideoCardComponent } from '../video-card/video-card';
 import { Video } from '../../models/models';
 import { Videos } from '../../services/videos';
 import { Router } from '@angular/router';
+import { SearchComponent } from "../../../../shared/components/search/search";
+import { SearchResult } from '../../../../shared/models/search_models';
 
 @Component({
   selector: 'app-video-library',
   standalone: true,
-  imports: [CommonModule, VideoCardComponent, FeaturedVideoComponent, CategoryFilterComponent],
+  imports: [CommonModule, VideoCardComponent, FeaturedVideoComponent, CategoryFilterComponent, SearchComponent],
   templateUrl: './video-library.html',
   styleUrl: './video-library.scss',
 })
 export class VideoLibraryComponent implements OnInit {
   private videoServices = inject(Videos);
   private router = inject(Router);
+    onResultSelected(result: SearchResult) {
+    console.log(result);
+    // مثلاً navigate للعنصر
+      this.router.navigate([`/videos/${result.id}`]); // عدلي الـ route حسب الـ routing بتاعك
+  }
 
   // featuredVideo = signal<Video{}>({});
   featuredVideo = signal<Video | null>(null);

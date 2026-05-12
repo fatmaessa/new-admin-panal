@@ -17,6 +17,7 @@
         ➕ إضافة مقالة جديدة
       </button>
     </header>
+<app-search [lockedType]="'article'" (resultSelected)="onResultSelected($event)"></app-search>
 
     <!-- Table -->
     <section class="animate-[fadeSlideUp_0.5s_0.2s_ease_both]">
