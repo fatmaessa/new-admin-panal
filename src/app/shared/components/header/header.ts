@@ -1,5 +1,5 @@
 import { Component, inject, output } from '@angular/core';
-import { AuthService } from '../../services/auth/guards/auth-service';
+import { AuthService } from '../../services/auth/auth-service';
 import { FormsModule } from '@angular/forms';
 
 @Component({
