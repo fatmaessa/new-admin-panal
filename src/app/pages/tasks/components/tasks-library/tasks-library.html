@@ -17,7 +17,7 @@
     </header>
 
     <!-- Filters -->
-    <section class="flex flex-wrap gap-3 justify-end animate-[fadeSlideUp_0.5s_0.1s_ease_both]">
+    <section class="flex flex-wrap gap-3 justify-start animate-[fadeSlideUp_0.5s_0.1s_ease_both]">
       @for (filter of filters; track filter.key) {
       <button (click)="setFilter(filter.key)" [class.bg-[#0058be]]="selectedFilter() === filter.key"
         [class.text-white]="selectedFilter() === filter.key" [class.hover:text-white]="selectedFilter() === filter.key"
