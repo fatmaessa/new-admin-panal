@@ -3,10 +3,13 @@ import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { STORY, StoryType } from '../../models/models';
 import { RouterLink } from '@angular/router';
 import { Sorties } from '../../services/sorties';
+import { SearchResult } from '../../../../shared/models/search_models';
+import { SearchComponent } from "../../../../shared/components/search/search";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-stories',
-  imports: [RouterLink],
+  imports: [RouterLink, SearchComponent],
   templateUrl: './stories.html',
   styleUrl: './stories.scss',
 })
@@ -15,6 +18,12 @@ export class Stories implements OnInit {
   ngOnInit(): void {
     this.getAllStories();
   }
+  private router = inject(Router); // ← هنا بدل الـ constructor
+  onResultSelected(result: SearchResult) {
+  console.log(result);
+  // مثلاً navigate للعنصر
+    this.router.navigate([`/stories/${result.id}`]); // عدلي الـ route حسب الـ routing بتاعك
+}
 
   allStories = signal<STORY[]>([]);
 
