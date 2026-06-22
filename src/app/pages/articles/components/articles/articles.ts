@@ -1,18 +1,25 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Article } from '../../models/models';
 import Swal from 'sweetalert2';
 import { ArticlesService } from '../../services/articles';
+import { SearchComponent } from "../../../../shared/components/search/search";
+import { SearchResult } from '../../../../shared/models/search_models';
 
 @Component({
   selector: 'app-articles',
-  imports: [RouterLink],
+  imports: [RouterLink, SearchComponent],
   templateUrl: './articles.html',
   styleUrl: './articles.scss',
 })
 export class Articles implements OnInit {
   private articleService = inject(ArticlesService);
-
+  private router = inject(Router);
+    onResultSelected(result: SearchResult) {
+    console.log(result);
+    // مثلاً navigate للعنصر
+      this.router.navigate([`/articles/${result.id}`]); // عدلي الـ route حسب الـ routing بتاعك
+  }
   allArticles = signal<Article[]>([]);
   selectedFilter = signal<string>('الكل');
 

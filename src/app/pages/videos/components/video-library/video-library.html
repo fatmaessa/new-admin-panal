@@ -30,10 +30,12 @@
       ></app-category-filter>
     </header>
 
+    <app-search [lockedType]="'video'" (resultSelected)="onResultSelected($event)" class=""></app-search>
+
     <!-- Featured Video -->
     <section
       *ngIf="featuredVideo()"
-      class="animate-[fadeSlideUp_0.5s_0.2s_ease_both]"
+      class="animate-[fadeSlideUp_0.5s_0.2s_ease_both] mt-5"
     >
       <app-featured-video
         [video]="featuredVideo()!"

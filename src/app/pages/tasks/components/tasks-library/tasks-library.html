@@ -2,7 +2,8 @@
   <main class="max-w-5xl mx-auto space-y-8">
     <!-- Header -->
     <header
-      class="flex flex-col md:flex-row md:items-start justify-between gap-6 animate-[fadeSlideDown_0.5s_ease_both]">
+      class="flex flex-col md:flex-row md:items-start justify-between gap-6 animate-[fadeSlideDown_0.5s_ease_both]"
+    >
       <div class="text-right">
         <h1 class="text-[32px] font-bold leading-[1.4] text-[#0058be] mb-1">إدارة المهام</h1>
         <p class="text-[18px] font-medium leading-[1.6] text-[#424754]">
@@ -10,8 +11,10 @@
         </p>
       </div>
 
-      <button routerLink="/tasks/add"
-        class="flex items-center gap-2 px-8 py-3 rounded-xl text-white font-bold text-base bg-gradient-to-l from-[#3B82F6] to-[#60A5FA] shadow-[0_4px_12px_rgba(59,130,246,0.3)] hover:scale-105 active:scale-95 transition-transform duration-200 self-start">
+      <button
+        routerLink="/tasks/add"
+        class="flex items-center gap-2 px-8 py-3 rounded-xl text-white font-bold text-base bg-gradient-to-l from-[#3B82F6] to-[#60A5FA] shadow-[0_4px_12px_rgba(59,130,246,0.3)] hover:scale-105 active:scale-95 transition-transform duration-200 self-start md:self-auto"
+      >
         ➕ إضافة مهمة جديدة
       </button>
     </header>
@@ -19,21 +22,30 @@
     <!-- Filters -->
     <section class="flex flex-wrap gap-3 justify-start animate-[fadeSlideUp_0.5s_0.1s_ease_both]">
       @for (filter of filters; track filter.key) {
-      <button (click)="setFilter(filter.key)" [class.bg-[#0058be]]="selectedFilter() === filter.key"
-        [class.text-white]="selectedFilter() === filter.key" [class.hover:text-white]="selectedFilter() === filter.key"
-        [class.bg-white]="selectedFilter() !== filter.key" [class.text-[#424754]]="selectedFilter() !== filter.key"
-        class="px-5 py-2 rounded-xl font-bold text-sm shadow-sm border border-blue-50 hover:border-[#0058be] hover:text-[#0058be] transition-all duration-200">
-        {{ filter.label }}
-      </button>
+        <button
+          (click)="setFilter(filter.key)"
+          [class.bg-[#0058be]]="selectedFilter() === filter.key"
+          [class.text-white]="selectedFilter() === filter.key"
+          [class.hover:text-white]="selectedFilter() === filter.key"
+          [class.bg-white]="selectedFilter() !== filter.key"
+          [class.text-[#424754]]="selectedFilter() !== filter.key"
+          class="px-5 py-2 rounded-xl font-bold text-sm shadow-sm border border-blue-50 hover:border-[#0058be] hover:text-[#0058be] transition-all duration-200"
+        >
+          {{ filter.label }}
+        </button>
       }
     </section>
+    <app-search [lockedType]="'task'" (resultSelected)="onResultSelected($event)"></app-search>
 
     <!-- Table -->
     <section class="animate-[fadeSlideUp_0.5s_0.2s_ease_both]">
       <div
-        class="bg-white rounded-[24px] shadow-[0_8px_30px_rgba(59,130,246,0.08)] border border-blue-50 overflow-hidden">
+        class="bg-white rounded-[24px] shadow-[0_8px_30px_rgba(59,130,246,0.08)] border border-blue-50 overflow-hidden"
+      >
         <!-- Table Head -->
-        <div class="hidden md:grid grid-cols-12 gap-4 px-8 py-5 bg-[#f2f4f6] border-b border-gray-100 text-right">
+        <div
+          class="hidden md:grid grid-cols-12 gap-4 px-8 py-5 bg-[#f2f4f6] border-b border-gray-100 text-right"
+        >
           <div class="col-span-4 text-[#424754] font-bold text-sm">اسم المهمة</div>
           <div class="col-span-2 text-[#424754] font-bold text-sm">الفئة</div>
           <div class="col-span-2 text-[#424754] font-bold text-sm">المكافأة (نجوم)</div>
@@ -44,66 +56,98 @@
         <!-- Rows -->
         <div class="divide-y divide-gray-100">
           @for (task of filteredTasks(); track task.taskId) {
-          <div
-            class="grid grid-cols-1 md:grid-cols-12 gap-4 px-6 md:px-8 py-5 items-center hover:bg-blue-50/30 transition-colors duration-200">
-            <!-- Name -->
-            <div class="col-span-4 flex items-center gap-3">
-              <div [class]="getCategoryIconBg(task.category)"
-                class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 text-lg">
-                {{ getCategoryIcon(task.category) }}
+            <div
+              class="grid grid-cols-1 md:grid-cols-12 gap-4 px-6 md:px-8 py-5 items-center hover:bg-blue-50/30 transition-colors duration-200"
+            >
+              <!-- Name -->
+              <div class="col-span-4 flex items-center gap-3">
+                <div
+                  [class]="getCategoryIconBg(task.category)"
+                  class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 text-lg"
+                >
+                  {{ getCategoryIcon(task.category) }}
+                </div>
+                <!-- <span class="font-bold text-[#191c1e]">{{ task.title }}</span> -->
+                <a
+                  [routerLink]="['/tasks', task.taskId]"
+                  class="font-bold text-[#191c1e] hover:text-[#0058be] transition-colors duration-200"
+                >
+                  {{ task.title }}
+                </a>
               </div>
-              <!-- <span class="font-bold text-[#191c1e]">{{ task.title }}</span> -->
-              <a [routerLink]="['/tasks', task.taskId]"
-                class="font-bold text-[#191c1e] hover:text-[#0058be] transition-colors duration-200">
-                {{ task.title }}
-              </a>
-            </div>
 
-            <!-- Category -->
-            <div class="col-span-2">
-              <span [class]="getCategoryBadge(task.category)" class="px-3 py-1 rounded-full text-xs font-bold">
-                {{ task.category }}
-              </span>
-            </div>
+              <!-- Category -->
+              <div class="col-span-2">
+                <span
+                  [class]="getCategoryBadge(task.category)"
+                  class="px-3 py-1 rounded-full text-xs font-bold"
+                >
+                  {{ task.category }}
+                </span>
+              </div>
 
-            <!-- Points -->
-            <div class="col-span-2 font-bold text-amber-500 flex items-center gap-1">
-              <span>⭐</span>
-              <span>{{ task.pointsRewarded }}</span>
-            </div>
+              <!-- Points -->
+              <div class="col-span-2 font-bold text-amber-500 flex items-center gap-1">
+                <span>⭐</span>
+                <span>{{ task.pointsRewarded }}</span>
+              </div>
 
-            <!-- Date -->
-            <!-- <div class="col-span-2 text-[#424754] text-sm">
+              <!-- Date -->
+              <!-- <div class="col-span-2 text-[#424754] text-sm">
                 {{ formatDate(task.taskId) }}
               </div> -->
 
-            <!-- Actions -->
-            <div class="col-span-2 flex justify-center gap-2">
-              <button [routerLink]="['/tasks/edit', task.taskId]"
-                class="p-2 rounded-xl text-[#424754] hover:text-[#0058be] hover:bg-blue-50 border border-transparent hover:border-blue-100 transition-all duration-200">
-                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-                  <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931z" />
-                </svg>
-              </button>
-              <button (click)="deleteTask(task.taskId)"
-                class="p-2 rounded-xl text-[#424754] hover:text-red-500 hover:bg-red-50 border border-transparent hover:border-red-100 transition-all duration-200">
-                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-                  <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916" />
-                </svg>
-              </button>
+              <!-- Actions -->
+              <div class="col-span-2 flex justify-center gap-2">
+                <button
+                  [routerLink]="['/tasks/edit', task.taskId]"
+                  class="p-2 rounded-xl text-[#424754] hover:text-[#0058be] hover:bg-blue-50 border border-transparent hover:border-blue-100 transition-all duration-200"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931z"
+                    />
+                  </svg>
+                </button>
+                <button
+                  (click)="deleteTask(task.taskId)"
+                  class="p-2 rounded-xl text-[#424754] hover:text-red-500 hover:bg-red-50 border border-transparent hover:border-red-100 transition-all duration-200"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
-          </div>
           } @empty {
-          <div class="p-20 text-center text-[#424754] text-lg">
-            لا توجد مهام في هذا التصنيف حالياً
-          </div>
+            <div class="p-20 text-center text-[#424754] text-lg">
+              لا توجد مهام في هذا التصنيف حالياً
+            </div>
           }
         </div>
 
         <!-- Pagination -->
-        <div class="flex items-center justify-between px-8 py-5 border-t border-gray-100 bg-[#f7f9fb]">
+        <div
+          class="flex items-center justify-between px-8 py-5 border-t border-gray-100 bg-[#f7f9fb]"
+        >
           <p class="text-sm text-[#424754] font-medium">
             عرض {{ filteredTasks().length }} من أصل {{ allTasks().length }} مهمة
           </p>
