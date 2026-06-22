@@ -4,9 +4,10 @@ import { Category, Task } from '../../models/models';
 import { Tasks } from '../../services/tasks';
 import Swal from 'sweetalert2';
 import { SearchComponent } from "../../../../shared/components/search/search";
+import { SearchComponent } from "../../../../shared/components/search/search";
 import { SearchResult } from '../../../../shared/models/search_models';
 
-@Component({
+@Cimports: [RouterLink, SearchComponent]
   selector: 'app-tasks-library',
   imports: [RouterLink, SearchComponent],
   templateUrl: './tasks-library.html',
