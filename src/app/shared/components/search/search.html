@@ -1,18 +1,7 @@
 <div class="search-wrapper" dir="rtl">
 
   <!-- Filter Tabs — بتظهر بس لما مفيش lockedType -->
-  <div class="filter-bar" *ngIf="!lockedType">
-    <button
-      *ngFor="let f of filters"
-      class="filter-btn"
-      [class.active]="activeType === f.value"
-      (click)="onFilterChange(f.value)"
-      type="button"
-    >
-      <span>{{ f.icon }}</span>
-      <span>{{ f.label }}</span>
-    </button>
-  </div>
+  
 
   <!-- Input -->
   <div class="input-wrap">
