@@ -3,11 +3,10 @@ import { Router, RouterLink } from '@angular/router';
 import { Category, Task } from '../../models/models';
 import { Tasks } from '../../services/tasks';
 import Swal from 'sweetalert2';
-import { SearchComponent } from "../../../../shared/components/search/search";
-import { SearchComponent } from "../../../../shared/components/search/search";
+import { SearchComponent } from '../../../../shared/components/search/search';
 import { SearchResult } from '../../../../shared/models/search_models';
 
-@Cimports: [RouterLink, SearchComponent]
+@Component({
   selector: 'app-tasks-library',
   imports: [RouterLink, SearchComponent],
   templateUrl: './tasks-library.html',
@@ -15,12 +14,12 @@ import { SearchResult } from '../../../../shared/models/search_models';
 })
 export class TasksLibrary implements OnInit {
   private taskService = inject(Tasks);
-   private router = inject(Router); // ← هنا بدل الـ constructor
+  private router = inject(Router); // ← هنا بدل الـ constructor
   onResultSelected(result: SearchResult) {
-  console.log(result);
-  // مثلاً navigate للعنصر
+    console.log(result);
+    // مثلاً navigate للعنصر
     this.router.navigate([`/tasks/${result.id}`]); // عدلي الـ route حسب الـ routing بتاعك
-}
+  }
 
   allTasks = signal<Task[]>([]);
   // selectedFilter = signal<string>('all');
