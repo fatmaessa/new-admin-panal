@@ -23,7 +23,10 @@ export class Tasks {
   }
 
   updateTask(id: number, task: CreateTask) {
-    return this.http.put<Task>(`${this.baseUrl()}tasks/${id}`, task);
+    return this.http.put<Task>(
+      `${this.baseUrl()}tasks/daily/${id}`,
+      task
+    );
   }
 
   deleteTask(id: number) {
