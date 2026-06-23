@@ -51,20 +51,13 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   searchControl = new FormControl('');
-  activeType: ContentType | 'all' = 'all';
 
   results: SearchResult[] = [];
   isLoading = false;
   total = 0;
   showPanel = false;
 
-  readonly filters: { value: ContentType | 'all'; label: string; icon: string }[] = [
-    { value: 'all', label: 'الكل', icon: '🔍' },
-    { value: 'story', label: 'قصص', icon: '📖' },
-    { value: 'video', label: 'فيديوهات', icon: '🎬' },
-    { value: 'task', label: 'مهام', icon: '✅' },
-    { value: 'article', label: 'مقالات', icon: '📝' },
-  ];
+  
 
   readonly typeLabel: Record<ContentType, string> = {
     story: 'قصة',
@@ -89,9 +82,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // لو في lockedType، اقفل الفلتر عليه من الأول
-    if (this.lockedType) {
-      this.activeType = this.lockedType;
-    }
+  
 
     this.searchSvc.results$.pipe(takeUntil(this.destroy$)).subscribe((r) => {
       this.results = r;
@@ -107,15 +98,11 @@ export class SearchComponent implements OnInit, OnDestroy {
         return;
       }
       this.showPanel = true;
-      this.searchSvc.search(q, this.activeType);
+      this.searchSvc.search(q, this.lockedType?? "all");
     });
   }
 
-  onFilterChange(type: ContentType | 'all') {
-    this.activeType = type;
-    const q = this.searchControl.value;
-    if (q) this.searchSvc.search(q, type);
-  }
+  
 
   onSelect(result: SearchResult) {
     this.resultSelected.emit(result);

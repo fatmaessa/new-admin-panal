@@ -1,5 +1,6 @@
 <div
-class="fixed top-0 right-[18%] left-0 h-20 bg-white drop-shadow-lg drop-shadow-blue-200 px-4 flex flex-row justify-between items-center z-50">  <div class="flex flex-row justify-content-between items-center w-50">
+  class="fixed top-0 right-[18%] left-0 h-20 bg-white drop-shadow-lg drop-shadow-blue-200 px-4 flex flex-row justify-between items-center z-50">
+  <div class="flex flex-row justify-content-between items-center w-50">
     <p class="text-xl ">مرحبا, {{ authService.currentUser()?.fullName}}</p>
   </div>
   <div class="flex flex-row justify-between items-center w-100">
@@ -8,15 +9,14 @@ class="fixed top-0 right-[18%] left-0 h-20 bg-white drop-shadow-lg drop-shadow-b
       <i class="fa-solid fa-magnifying-glass absolute text-xs text-gray-700 left-96 top-6"></i>
     </div> -->
 
-    <div class="flex flex-row justify-around items-center w-50">
-       <button class=" flex gap-2 items-center cursor-pointer mr-3" (click)="logout()">
+    <div class="flex flex-row justify-between items-center w-50 mr-52">
+      <button class=" flex gap-2 items-center cursor-pointer mr-3" (click)="logout()">
         <i class="fa-solid fa-arrow-right-from-bracket text-blue-400 text-2xl"></i>
         <span> تسجيل الخروج</span>
-       </button>
+      </button>
       <!-- <i class="fa-regular fa-bell cursor-pointer  text-2xl text-blue-400 "></i>
       <i class="fa-solid fa-gear cursor-pointer  text-2xl text-blue-400"></i> -->
       <img src="profile_image.png" alt="" class="w-10 h-10 cursor-pointer">
     </div>
   </div>
 </div>
-

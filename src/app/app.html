@@ -3,10 +3,9 @@
 }
 <div
   class="bg-gray-200 min-h-screen transition-all duration-300"
-  mt-5
-  [ngClass]="{ 'mr-[18%]': showLayout() }"
+  [ngClass]="{ 'mr-[18%] mt-5': showLayout() }"
 >
-  <main class="mt-12" [ngClass]="{ 'p-6': showLayout() }">
+  <main class="mt-12" [ngClass]="{ 'p-6 mt-12': showLayout() }">
     <router-outlet></router-outlet>
   </main>
 </div>
